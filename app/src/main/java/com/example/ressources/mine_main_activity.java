@@ -27,6 +27,8 @@ public class mine_main_activity extends Activity {
         init();
 
 //new test
+
+
     }
 
 
