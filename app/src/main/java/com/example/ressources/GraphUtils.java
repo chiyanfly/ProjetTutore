@@ -1,30 +1,33 @@
 package com.example.ressources;
 
-import java.util.ArrayList;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Paint.Align;
+import android.view.View;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.chart.BarChart.Type;
 import org.achartengine.chart.PointStyle;
 import org.achartengine.model.CategorySeries;
-import org.achartengine.model.MultipleCategorySeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
-import org.achartengine.renderer.BasicStroke;
 import org.achartengine.renderer.DefaultRenderer;
 import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
-import org.achartengine.renderer.XYSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer.Orientation;
+import org.achartengine.renderer.XYSeriesRenderer;
 
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Paint.Align;
-import android.view.View;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
+
+//   GraphUtils.getInstance().getLineChartView
+//   (MainActivity.this, studentGradeList , "B");
+
+
 
 public class GraphUtils {
 	private static String[] s = new String[] { "A", "B", "C" };

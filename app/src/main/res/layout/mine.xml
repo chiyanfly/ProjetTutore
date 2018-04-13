@@ -31,53 +31,37 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:gravity="center"
-            >
+            android:orientation="vertical">
 
 
             <Button
+                android:id="@+id/mine_CPU"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="CPU"
-                android:id="@+id/mine_CPU"/>
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="GPS"
-                android:id="@+id/mine_GPS"/>
+                android:text="CPU" />
 
+            <Button
+                android:id="@+id/mine_GPS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="GPS" />
 
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:orientation="vertical"
-            android:id="@+id/mine_framelayoutlist"
-            >
-        </LinearLayout>
+
         <!--
-
-
-
-
-
-
-
 
             <ListView
                 android:layout_width="match_parent"
@@ -89,17 +73,15 @@
 !-->
 
 
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler"
-            android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:scrollbars="vertical"
-            android:layout_marginTop="0dp" />
-        
+            android:layout_height="match_parent"
+            android:layout_marginTop="0dp"
+            android:scrollbars="vertical" />
+
 
     </LinearLayout>
-
 
 
 </LinearLayout>
