@@ -16,11 +16,7 @@
 
         <activity android:name=".mine_main_activity" >
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
 
@@ -29,6 +25,16 @@
 
         <activity android:name=".TestActivity" >
 
+        </activity>
+
+
+
+        <activity android:name=".testjson" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
 

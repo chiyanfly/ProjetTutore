@@ -23,11 +23,24 @@ public class StatEntry {
     }
 
     public static Resource readResourceFromString(String string) {
-        Resource resource=null;
+        StatEntry.Resource resource=null;
+        if(string.equals("GPS")) {
+            resource = Resource.GPS;
+        } else if (string.equals("MobileData")) {
+            resource = Resource.MobileData;
+        } else if (string.equals("Wifi")) {
+            resource = Resource.Wifi;
+        } else if (string.equals("SMS")) {
+            resource = Resource.SMS;
+        } else if (string.equals("Contacts")) {
+            resource = Resource.Contacts;
+        }
         return resource;
     }
 
     public String toString() {
-        return timestamp.toString() + ": " + app_name + " accessed " + resource.toString() + "(" + details.toString() + ")";
+        return timestamp.toString() + ": " + app_name + " accessed " + resource.toString() + " ( " + " )\n";
+
+    //return  "dsqfqsf";
     }
 }

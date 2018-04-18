@@ -1,0 +1,7 @@
+[   
+    {"timestamp":1522857900, "app":"myApp0", "resource":"GPS", "detail":{}},
+    {"timestamp":1522857910, "app":"myApp1", "resource":"MobileData", "detail":{}},
+    {"timestamp":1522857920, "app":"myApp2", "resource":"Wifi", "detail":{}},
+    {"timestamp":1522857930, "app":"myApp3", "resource":"SMS", "detail":{}},
+    {"timestamp":1522857940, "app":"myApp4", "resource":"Contacts", "detail":{}}
+]

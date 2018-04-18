@@ -12,13 +12,21 @@ import android.util.JsonReader;
  * Created by richa on 15/03/2018.
  */
 
-public class JsonFileReader implements StatFileReader {
+public class JsonFileReader  {
 
-    public ArrayList<StatEntry> readFile(String path) {
-        File file = new File(path);
-        JsonReader reader = null;
+
+
+    public JsonFileReader(){
+
+
+    }
+
+
+    public ArrayList<StatEntry> readFile( JsonReader j) {
+      //  File file = new File(path);
+        JsonReader reader = j;
         try {
-            reader = new JsonReader(new FileReader(file));
+
             return readEntryArray(reader);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -57,14 +65,21 @@ public class JsonFileReader implements StatFileReader {
         reader.beginObject();
         while (reader.hasNext()) {
             String name = reader.nextName();
+            System.out.println("name");
             if (name.equals("timestamp")) {
+               // System.out.println("lalallalal");
+
                 timestamp = new Timestamp(reader.nextLong());
+                System.out.println(timestamp.toString());
             } else if (name.equals("app")) {
                 app_name = reader.nextString();
+                System.out.println(app_name);
             } else if (name.equals("resource")) {
                 resource = StatEntry.readResourceFromString(reader.nextString());
+                System.out.println(resource);
             } else if (name.equals("detail")) {
                 readDetail(reader);
+                System.out.println("detail");
             } else {
                 throw new InvalidEntryException();
             }
