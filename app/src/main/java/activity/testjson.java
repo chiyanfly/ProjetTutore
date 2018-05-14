@@ -68,6 +68,13 @@ public class testjson extends Activity {
 
 
 
+        database.searchdata(getApplicationContext());
+
+
+
+
+
+
 
 
         t.setText(s);
