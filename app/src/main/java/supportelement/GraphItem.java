@@ -1,4 +1,4 @@
-package com.example.ressources;
+package supportelement;
 
 import org.achartengine.GraphicalView;
 
@@ -16,7 +16,7 @@ public class GraphItem {
     Date date;
 
 
-    GraphItem(GraphicalView g, String t) {
+    public  GraphItem(GraphicalView g, String t) {
 
 
         graphicalView = g;
@@ -24,6 +24,7 @@ public class GraphItem {
 
 
     }
+
 
     public GraphicalView getGraphicalView() {
         return graphicalView;

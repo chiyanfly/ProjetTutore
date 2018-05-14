@@ -10,6 +10,8 @@ import org.achartengine.GraphicalView;
 
 import java.util.ArrayList;
 
+import supportelement.GraphItem;
+
 
 /**
  * Created by hxu on 09/04/18.

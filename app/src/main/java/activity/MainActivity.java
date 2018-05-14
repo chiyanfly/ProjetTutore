@@ -1,4 +1,4 @@
-package com.example.ressources;
+package activity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.achartengine.GraphicalView;
 import org.achartengine.model.CategorySeries;
-import org.achartengine.model.SeriesSelection;
 import org.achartengine.renderer.DefaultRenderer;
 
 import android.app.Activity;
@@ -18,13 +17,17 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.ressources.ClassMessage;
+import com.example.ressources.GraphUtils;
+import com.example.ressources.Pie;
+import com.example.ressources.R;
+import com.example.ressources.StudentGradeMessage;
 
 public class MainActivity extends Activity implements OnClickListener {
 	

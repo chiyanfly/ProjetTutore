@@ -5,4 +5,9 @@ package reader;
  */
 
 public class Detail {
+
+    @Override
+    public String toString() {
+        return "";
+    }
 }

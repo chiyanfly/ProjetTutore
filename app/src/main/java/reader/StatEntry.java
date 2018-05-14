@@ -1,5 +1,6 @@
 package reader;
 
+
 import java.sql.Timestamp;
 
 /**
@@ -8,7 +9,7 @@ import java.sql.Timestamp;
 
 public class StatEntry {
 
-    enum Resource {GPS, MobileData, Wifi, SMS, Contacts};
+    enum Resource {GPS, MobileData, Wifi, SMS, Contacts} ;
 
     private Timestamp timestamp;
     private String app_name;
@@ -23,8 +24,8 @@ public class StatEntry {
     }
 
     public static Resource readResourceFromString(String string) {
-        StatEntry.Resource resource=null;
-        if(string.equals("GPS")) {
+        StatEntry.Resource resource = null;
+        if (string.equals("GPS")) {
             resource = Resource.GPS;
         } else if (string.equals("MobileData")) {
             resource = Resource.MobileData;
@@ -38,9 +39,23 @@ public class StatEntry {
         return resource;
     }
 
-    public String toString() {
-        return timestamp.toString() + ": " + app_name + " accessed " + resource.toString() + " ( " + " )\n";
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
 
-    //return  "dsqfqsf";
+    public String getApp_name() {
+        return app_name;
+    }
+
+    public Resource getResource() {
+        return resource;
+    }
+
+    public Detail getDetails() {
+        return details;
+    }
+
+    public String toString() {
+        return timestamp.toString() + ": " + app_name + " accessed " + resource.toString() + "(" + details.toString() + ")";
     }
 }

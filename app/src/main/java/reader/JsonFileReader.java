@@ -78,7 +78,8 @@ public class JsonFileReader  {
                 resource = StatEntry.readResourceFromString(reader.nextString());
                 System.out.println(resource);
             } else if (name.equals("detail")) {
-                readDetail(reader);
+                detail=readDetail(reader);
+
                 System.out.println("detail");
             } else {
                 throw new InvalidEntryException();
@@ -90,6 +91,6 @@ public class JsonFileReader  {
 
     private Detail readDetail(JsonReader reader) throws IOException {
         reader.skipValue();
-        return null;
+        return new Detail();
     }
 }

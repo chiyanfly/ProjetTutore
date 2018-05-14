@@ -1,4 +1,4 @@
-package com.example.ressources;
+package activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -7,6 +7,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 import android.widget.LinearLayout;
+
+import supportelement.GraphItem;
+import com.example.ressources.GraphUtils;
+import com.example.ressources.Pie;
+import com.example.ressources.R;
+import com.example.ressources.Recyleradapter;
+import com.example.ressources.StudentGradeMessage;
 
 import org.achartengine.GraphicalView;
 

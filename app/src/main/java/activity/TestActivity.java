@@ -1,9 +1,12 @@
-package com.example.ressources;
+package activity;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.LinearLayout;
+
+import com.example.ressources.GraphUtils;
+import com.example.ressources.R;
 
 import org.achartengine.GraphicalView;
 
@@ -35,6 +38,9 @@ public class TestActivity extends Activity {
 
 linearLayout.removeAllViews();
         linearLayout.addView(graphlist.get(0));
+
+
+
 
 
 
