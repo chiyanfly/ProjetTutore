@@ -39,8 +39,6 @@ public class mine_main_activity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mine);
-
-
         init();
         myrecyclerView.setHasFixedSize(true);
         myrecyclerView.setLayoutManager(new LinearLayoutManager(this));

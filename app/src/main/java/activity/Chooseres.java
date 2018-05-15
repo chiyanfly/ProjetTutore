@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -24,7 +26,7 @@ public class Chooseres extends Activity {
 
     ArrayList<String> resnamelist= new ArrayList<>();
 
-   // Database database;
+    Database database;
     ListView resnamelistview;
 
     @Override
@@ -33,7 +35,7 @@ public class Chooseres extends Activity {
 
         setContentView(R.layout.chooseres);
 
-        //database= new Database(getApplicationContext());
+        database= Database.getInstance(getApplicationContext());
         getdata();
         resnamelistview= (ListView) findViewById(R.id.id_reslist);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(Chooseres.this,
@@ -41,6 +43,15 @@ public class Chooseres extends Activity {
         resnamelistview.setAdapter(adapter);
 
 
+        resnamelistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //TODO
+
+
+
+            }
+        });
 
 
 
@@ -51,7 +62,7 @@ public class Chooseres extends Activity {
     void getdata(){
 
         // select appname from table
-        Cursor c =  Database.getInstance(getApplicationContext()).searchdata(getApplicationContext(),"select RESSOURCES from donneesRessources");
+        Cursor c =  database.searchdata(getApplicationContext(),"select RESSOURCES from donneesRessources");
 
 
         while(c.moveToNext()){

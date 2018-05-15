@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -25,7 +27,7 @@ public class Chooseapp extends Activity {
 
     ArrayList<String>  appnamelist= new ArrayList<>();
 
-    //Database database;
+    Database database;
     ListView  appnamelistview;
 
     @Override
@@ -34,7 +36,7 @@ public class Chooseapp extends Activity {
 
         setContentView(R.layout.chooseapp);
 
-           // database= new Database(getApplicationContext());
+          database= Database.getInstance(getApplicationContext());
             getdata();
             appnamelistview= (ListView) findViewById(R.id.id_applist);
              ArrayAdapter<String> adapter = new ArrayAdapter<String>(Chooseapp.this,
@@ -42,7 +44,21 @@ public class Chooseapp extends Activity {
             appnamelistview.setAdapter(adapter);
 
 
+            appnamelistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        //TODO
+                           String appname= appnamelist.get(position);
+                           String sql= "select * from donneesRessources where appName = "+ appname;
+                           Cursor c = database.searchdata(getApplicationContext(), sql);
 
+
+
+
+                           c.close();
+
+                }
+            });
 
 
 
@@ -52,7 +68,7 @@ public class Chooseapp extends Activity {
     void getdata(){
 
         // select appname from table
-      Cursor c = Database.getInstance(getApplicationContext()).searchdata(getApplicationContext(),"select appName from donneesRessources");
+        Cursor c = database.searchdata(getApplicationContext(),"select appName from donneesRessources");
 
 
         while(c.moveToNext()){

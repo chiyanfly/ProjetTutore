@@ -2,7 +2,9 @@ package activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.JsonReader;
 import android.view.View;
 import android.widget.Button;
@@ -61,8 +63,8 @@ public class Choosemode extends Activity {
 
 
     }
-
-    void adddata() {
+// we need to garatir yhat this fonction excute only once until there are new datas
+   private void adddata() {
 
 
         InputStream in = getResources().openRawResource(getResources().getIdentifier("input", "raw", getPackageName()));
@@ -73,14 +75,25 @@ public class Choosemode extends Activity {
             JsonFileReader reader = new JsonFileReader();
             ArrayList<StatEntry> statEntries = reader.readFile(j);
 
-
-            String s = "";
             for (int i = 0; i < statEntries.size(); i++) {
                 // s+=statEntries.get(i).toString()+"\n";
                 System.out.println(statEntries.get(i).toString());
 
                 Database.getInstance(getApplicationContext()).addData(getApplicationContext(), statEntries.get(i));
             }
+
+        // for output the database to see
+            Cursor c = Database.getInstance(getApplicationContext()).searchdata(getApplicationContext(),"select * from donneesRessources");
+
+
+            while(c.moveToNext()){
+
+                String  appname = c.getString(c.getColumnIndex("appName"));
+
+            }
+            c.close();
+
+
 
 
 
