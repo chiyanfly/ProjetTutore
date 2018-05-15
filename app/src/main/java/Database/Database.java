@@ -87,7 +87,7 @@ public class Database extends SQLiteOpenHelper {
 
 
 
-    public void searchdata(Context context){
+    public Cursor searchdata(Context context,String sql){
 
 
         SQLiteDatabase db = Database.getInstance(context).getWritableDatabase();
@@ -98,9 +98,9 @@ public class Database extends SQLiteOpenHelper {
           //      "donneesRessources",columns , null, null, null, null, null);
 
 
-        Cursor cursor =   db.rawQuery("select * from donneesRessources",null);
+        Cursor cursor =   db.rawQuery(sql,null);
 
-
+/*
         while(cursor.moveToNext()){
 
             int  id = cursor.getInt(cursor.getColumnIndex("id"));
@@ -114,7 +114,8 @@ public class Database extends SQLiteOpenHelper {
 
         }
 
-
+  */
+        return  cursor;
 
     }
     //to add datas
