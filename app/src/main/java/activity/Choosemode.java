@@ -50,14 +50,18 @@ public class Choosemode extends Activity {
             public void onClick(View v) {
                 Intent i = new Intent(Choosemode.this, Chooseapp.class);
                 startActivity(i);
+                Choosemode.this.finish();
             }
         });
         //Click this image, we will goto the page ressource
         gotoRessource.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Choosemode.this, Chooseres.class);
-                startActivity(i);
+               /* Intent i = new Intent(Choosemode.this, Chooseres.class);
+                startActivity(i);*/
+
+
+               Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext());
             }
         });
 

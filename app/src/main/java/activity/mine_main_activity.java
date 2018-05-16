@@ -124,6 +124,8 @@ public class mine_main_activity extends Activity {
         sgm.setNumTotal(12);
         stuGradeMap.put("name", sgm);
         studentGradeList.add((HashMap<String, StudentGradeMessage>) stuGradeMap);
+
+
         stuGradeMap = new HashMap<String, StudentGradeMessage>();
         sgm = new StudentGradeMessage();
         sgm.setName("1.2");
@@ -137,6 +139,9 @@ public class mine_main_activity extends Activity {
         sgm.setNumTotal(16);
         stuGradeMap.put("name", sgm);
         studentGradeList.add((HashMap<String, StudentGradeMessage>) stuGradeMap);
+
+
+
         stuGradeMap = new HashMap<String, StudentGradeMessage>();
         sgm = new StudentGradeMessage();
         sgm.setName("1.3");
@@ -150,6 +155,8 @@ public class mine_main_activity extends Activity {
         sgm.setNumTotal(29);
         stuGradeMap.put("name", sgm);
         studentGradeList.add((HashMap<String, StudentGradeMessage>) stuGradeMap);
+
+
         stuGradeMap = new HashMap<String, StudentGradeMessage>();
         sgm = new StudentGradeMessage();
         sgm.setName("1.4");
@@ -163,6 +170,9 @@ public class mine_main_activity extends Activity {
         sgm.setNumTotal(40);
         stuGradeMap.put("name", sgm);
         studentGradeList.add((HashMap<String, StudentGradeMessage>) stuGradeMap);
+
+
+
         stuGradeMap = new HashMap<String, StudentGradeMessage>();
         sgm = new StudentGradeMessage();
         sgm.setName("1.5");
@@ -176,6 +186,9 @@ public class mine_main_activity extends Activity {
         sgm.setNumTotal(14);
         stuGradeMap.put("name", sgm);
         studentGradeList.add((HashMap<String, StudentGradeMessage>) stuGradeMap);
+
+
+
         stuGradeMap = new HashMap<String, StudentGradeMessage>();
         sgm = new StudentGradeMessage();
         sgm.setName("1.6");

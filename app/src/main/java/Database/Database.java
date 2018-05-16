@@ -144,4 +144,13 @@ public class Database extends SQLiteOpenHelper {
 
     }
 
+    public void deletealldata(Context context) {
+
+        SQLiteDatabase db = Database.getInstance(context).getWritableDatabase();
+
+        db.delete("donneesRessources",null,null);
+        db.close();
+
+
+    }
 }
