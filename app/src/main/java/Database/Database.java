@@ -52,24 +52,38 @@ public class Database extends SQLiteOpenHelper {
 
         String enumTable = "CREATE TABLE ressources("+
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "type TEXT"+
+                "type TEXT,"+
+                "ressourcegroup TEXT"+
                 ");";
 //TODO
-        String addRessource = "INSERT INTO ressources (type) VALUES ('GPS')";
-
-        String addRessource1 = "INSERT INTO ressources (type) VALUES ('MobileData')";
-
-        String addRessource2 = "INSERT INTO ressources (type) VALUES ('Wifi')";
-
-        String addRessource3 = "INSERT INTO ressources (type) VALUES ('SMS')";
-
-        String addRessource4 = "INSERT INTO ressources (type) VALUES ('Contacts')";
+        String addRessource0 = "INSERT INTO ressources (type,ressourcegroup) VALUES ('GPS','Location')";
+        String addRessource1 = "INSERT INTO ressources (type,ressourcegroup) VALUES ('MobileData','Communication')";
+        String addRessource2 = "INSERT INTO ressources (type,ressourcegroup) VALUES ('Wifi','Communication')";
+        String addRessource3 = "INSERT INTO ressources (type,ressourcegroup) VALUES ('Bluetooth','Communication')";
+        String addRessource4 = "INSERT INTO ressources (type,ressourcegroup) VALUES ('NFC','Communication')";
+        String addRessource5 = "INSERT INTO ressources (type,ressourcegroup) VALUES ('Camera','Peripheral')";
+        String addRessource6 = "INSERT INTO ressources (type,ressourcegroup) VALUES ('Microphone','Peripheral')";
+        String addRessource7 = "INSERT INTO ressources (type,ressourcegroup) VALUES ('Sensors','Peripheral')";
+        String addRessource8 = "INSERT INTO ressources (type,ressourcegroup) VALUES ('Sms','PersonnalInformation')";
+        String addRessource9 = "INSERT INTO ressources (type,ressourcegroup) VALUES ('Contacts','PersonnalInformation')";
+        String addRessource10 = "INSERT INTO ressources (type,ressourcegroup) VALUES ('Phone','PersonnalInformation')";
+        String addRessource11 = "INSERT INTO ressources (type,ressourcegroup) VALUES ('InternalStorage','Storage')";
+        String addRessource12 = "INSERT INTO ressources (type,ressourcegroup) VALUES ('ExternalStorage','Storage')";
 
         db.execSQL(enumTable);
+        db.execSQL(addRessource0);
         db.execSQL(addRessource1);
         db.execSQL(addRessource2);
         db.execSQL(addRessource3);
         db.execSQL(addRessource4);
+        db.execSQL(addRessource5);
+        db.execSQL(addRessource6);
+        db.execSQL(addRessource7);
+        db.execSQL(addRessource8);
+        db.execSQL(addRessource9);
+        db.execSQL(addRessource10);
+        db.execSQL(addRessource11);
+        db.execSQL(addRessource12);
 
          String createTable = "CREATE TABLE donneesRessources("
                  +"id INTEGER PRIMARY KEY AUTOINCREMENT,"
