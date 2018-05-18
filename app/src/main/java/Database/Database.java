@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 
 import reader.StatEntry;
@@ -85,7 +86,7 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(addRessource11);
         db.execSQL(addRessource12);
 
-         String createTable = "CREATE TABLE donneesRessources("
+        String createTable = "CREATE TABLE donneesRessources("
                  +"id INTEGER PRIMARY KEY AUTOINCREMENT,"
                  +"timeStamp TIMESTAMP,"
                  +"appName VARCHAR(20),"
@@ -93,6 +94,46 @@ public class Database extends SQLiteOpenHelper {
                  "detail TEXT);";
          /* ici , il veut des entiers mais on a besoin des string */
         db.execSQL(createTable);
+
+        String fiveMinutes =  "CREATE TABLE fiveMinutes("
+                +"id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                +"timeStamp TIMESTAMP,"
+                +"appName VARCHAR(20),"
+                +"RESSOURCES REFERENCES ressources(type),"+
+                "detail INTEFER);";
+        db.execSQL(fiveMinutes);
+
+        String onehour =  "CREATE TABLE oneHour("
+                +"id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                +"timeStamp TIMESTAMP,"
+                +"appName VARCHAR(20),"
+                +"RESSOURCES REFERENCES ressources(type),"+
+                "detail TEXT);";
+        db.execSQL(onehour);
+
+        String  oneday="CREATE TABLE oneDay("
+                +"id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                +"timeStamp TIMESTAMP,"
+                +"appName VARCHAR(20),"
+                +"RESSOURCES REFERENCES ressources(type),"+
+                "detail TEXT);";
+        db.execSQL(oneday);
+
+        String oneweek =  "CREATE TABLE oneWeek("
+                +"id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                +"timeStamp TIMESTAMP,"
+                +"appName VARCHAR(20),"
+                +"RESSOURCES REFERENCES ressources(type),"+
+                "detail TEXT);";
+        db.execSQL(oneweek);
+
+        String oneyear =  "CREATE TABLE oneYear("
+                +"id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                +"timeStamp TIMESTAMP,"
+                +"appName VARCHAR(20),"
+                +"RESSOURCES REFERENCES ressources(type),"+
+                "detail TEXT);";
+        db.execSQL(oneyear);
     }
 
     @Override
@@ -153,9 +194,35 @@ public class Database extends SQLiteOpenHelper {
         db.close();
     }
 
-    //update demande algo
-    private void updateData(){
+    // 5 min to hour
+    private void toHour(Context context){
 
+        SQLiteDatabase db = Database.getInstance(context).getWritableDatabase();
+        ArrayList<String> apps = new ArrayList<>();
+        ArrayList<String> ressourcesNames = new ArrayList<>();
+
+        Cursor appNames = db.rawQuery("select appName from fiveMinutes",null);
+        Cursor ressources = db.rawQuery("select RESSOURCES from fiveMinutes",null);
+
+        while (appNames.moveToNext()){
+           String  appname = appNames.getString(appNames.getColumnIndex("appName"));
+           apps.add(appname);
+        }
+        appNames.close();
+
+        while (ressources.moveToNext()){
+            String  toadd = ressources.getString(ressources.getColumnIndex("RESSOURCES"));
+            ressourcesNames.add(toadd);
+        }
+        ressources.close();
+
+        for(int i = 0; i< apps.size();i++){
+                int fois;
+                String request = "select COUNT(*) from fiveMinutes where appName = "+apps.indexOf(i)+
+                        "group by RESSOURCES";
+                Cursor cursor = db.rawQuery(request,null);
+
+        }
     }
 
     public void deletealldata(Context context) {
