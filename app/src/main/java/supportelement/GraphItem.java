@@ -8,6 +8,7 @@ import java.util.Date;
  * Created by XH on 2018/4/13.
  */
 
+
 public class GraphItem {
 
 
@@ -21,6 +22,7 @@ public class GraphItem {
 
         graphicalView = g;
         tag = t;
+
 
 
     }

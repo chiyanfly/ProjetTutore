@@ -50,6 +50,11 @@
         </activity>
 
 
+        <activity android:name="activity.Showimageforeachapp">
+
+
+        </activity>
+
     </application>
 
 </manifest>

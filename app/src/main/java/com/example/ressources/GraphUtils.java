@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import supportelement.Interval;
 
 
 //   GraphUtils.getInstance().getLineChartView
@@ -34,8 +35,8 @@ public class GraphUtils {
 	private static GraphUtils graph;
 	private static ArrayList<Pie> pieL = new ArrayList<Pie>();
 	private static ArrayList<HashMap<String, StudentGradeMessage>> stuGradeList = new ArrayList<HashMap<String, StudentGradeMessage>>();
-
-	public static GraphUtils getInstance() {
+	private static ArrayList<HashMap<Integer, Interval>> myinfolist = new ArrayList<>();
+	public static GraphUtils getInstance() {;
 		if (graph == null) {
 			graph = new GraphUtils();
 		}
@@ -98,6 +99,74 @@ public class GraphUtils {
 
 		return series;
 	}
+
+	public static View getmyLineChartView(Context context,
+										List<HashMap<Integer, Interval>> infolist,
+										String tag) {
+
+		myinfolist = (ArrayList<HashMap<Integer, Interval>>) infolist;
+		XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
+		renderer.setBackgroundColor(Color.parseColor("#efefef"));
+		renderer.setApplyBackgroundColor(true);
+		renderer.setMarginsColor(Color.parseColor("#efefef"));
+		renderer.setPanEnabled(false, false);
+		renderer.setLabelsTextSize(20f);
+		renderer.setMargins(new int[] {20, 55, 15,5});
+		renderer.setYAxisMin(0);
+		renderer.setXLabels(0);
+		renderer.setShowGrid(true);
+		renderer.setGridColor(Color.parseColor("#eeeeee"));
+		renderer.setPointSize(5f);
+		Align align = renderer.getYAxisAlign(0);
+		renderer.setYLabelsAlign(align);
+		renderer.setYLabelsColor(0, Color.BLACK);
+		renderer.setYLabels(6);
+		renderer.setYAxisMin(0);
+		renderer.setYAxisMax(4);
+		renderer.setXAxisMin(0.1);
+		renderer.setXAxisMax(10.5);
+		renderer.setXLabelsColor(Color.BLACK);
+		renderer.setAxesColor(Color.BLACK);
+		renderer.setYLabelsAlign(Align.RIGHT);
+		renderer.addYTextLabel(4, String.valueOf("4"));
+		renderer.addYTextLabel(3, String.valueOf("3"));
+		renderer.addYTextLabel(2, String.valueOf("2"));
+		renderer.addYTextLabel(1,String.valueOf("1"));
+		renderer.addYTextLabel(0,String.valueOf("0"));
+		int j = 0;
+		for (int i = 0; i < 10;i++) {
+			j++;
+//			String name = map.get("name").getName().toString();
+			renderer.addTextLabel(j, j+"");
+		}
+		XYMultipleSeriesDataset dataset = getXYMultipleSeriesDataset(tag);
+		XYSeriesRenderer xyRenderer = new XYSeriesRenderer();
+		xyRenderer.setColor(Color.parseColor("#007aa4"));
+		xyRenderer.setLineWidth(2f);
+		xyRenderer.setDisplayChartValues(true);
+		xyRenderer.setChartValuesTextSize(18f);
+		xyRenderer.setDisplayChartValuesDistance(30);
+		xyRenderer.setPointStyle(PointStyle.CIRCLE);
+		xyRenderer.setFillBelowLine(true);
+		xyRenderer.setFillBelowLineColor(Color.parseColor("#66FFB040"));
+		xyRenderer.setFillPoints(true);
+
+		renderer.addSeriesRenderer(xyRenderer);
+
+		return ChartFactory.getCubeLineChartView(context, dataset, renderer,0.33f);
+
+	}
+
+
+
+
+
+
+
+
+
+
+
 
 	/**
 	 * 圆滑单曲线 
@@ -166,6 +235,30 @@ public class GraphUtils {
 	public static XYMultipleSeriesDataset getXYMultipleSeriesDataset(String tag) {
 
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
+
+		if ("GPS".equals(tag)) {
+			XYSeries series = new XYSeries("GPS");
+			System.out.println("lalallall");
+			for (int i = 1; i < myinfolist.size() + 1; i++) {
+				System.out.println("cqklcjl");
+				series.add(
+						Double.valueOf(i + ""),
+						Double.valueOf(myinfolist.get(i - 1).get(1).getGPS()));
+
+
+			}
+
+			dataset.addSeries(series);
+		} else if ("MobileData".equals(tag)) {
+			XYSeries series = new XYSeries("MobileData");
+			for (int i = 1; i < myinfolist.size() + 1; i++) {
+				series.add(
+						Double.valueOf(i + ""),
+						Double.valueOf(myinfolist.get(i - 1).get(1).getMobiledata()));
+			}
+			dataset.addSeries(series);
+		}
+		/*
 		if ("A".equals(tag)) {
 			XYSeries series = new XYSeries("A");
 			for (int i = 1; i < stuGradeList.size() + 1; i++) {
@@ -203,7 +296,9 @@ public class GraphUtils {
 								.getTotal()));
 			}
 			dataset.addSeries(series);
-		}
+		}*/
+
+
 		return dataset;
 	}
 

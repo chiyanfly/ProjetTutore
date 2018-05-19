@@ -1,6 +1,7 @@
 package activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,14 +9,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import com.example.ressources.R;
 
-import org.apache.commons.collections.map.MultiKeyMap;
 import org.apache.commons.collections.map.MultiValueMap;
 
-import java.sql.Time;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,11 +30,9 @@ import Database.Database;
 public class Chooseapp extends Activity {
 
 
-    ArrayList<String> appnamelist = new ArrayList<>();
-
-    Database database;
-    ListView appnamelistview;
-    MultiValueMap map_info = new MultiValueMap();
+    private ArrayList<String> appnamelist = new ArrayList<>();
+    private Database database;
+    private ListView appnamelistview;
 
 
     /**
@@ -75,6 +72,7 @@ public class Chooseapp extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //TODO
+                MultiValueMap map_info = new MultiValueMap();
                 String appname = appnamelist.get(position);
                 System.out.println(appname);
                 String sql = "select * from donneesRessources where appName = '" + appname + "'";
@@ -93,7 +91,7 @@ public class Chooseapp extends Activity {
 
                     String timestamp = c.getString(c.getColumnIndex("timeStamp"));
 
-                    put_info_into_map(res, timestamp);
+                    put_info_into_map(map_info, res, timestamp);
                     timelist.add(timestamp);
                     if (!reslist.contains(res))
                         reslist.add(res);
@@ -101,13 +99,9 @@ public class Chooseapp extends Activity {
 
                 Timestamp timebegin = begintime(timelist);
                 Timestamp timeend = endtime(timelist);
-
-                System.out.println(timebegin + " " + timeend);
-
-                long timeinterval = (timebegin.getTime() - timeend.getTime()) / 5;
+                long timeinterval = (timeend.getTime() - timebegin.getTime()) / 5;
 // let's say we just divide the interval into 5 parts
-
-
+// System.out.println(timebegin.getTime() + " " + timeend.getTime() + " " + timeinterval);
                 HashMap<String, HashMap<Integer, Integer>> graphsourcemap = new HashMap<>();
 
                 for (String res : reslist) {
@@ -122,12 +116,16 @@ public class Chooseapp extends Activity {
                     int t3 = 0;
                     int t4 = 0;
                     while (i.hasNext()) {
+
+
+                        //  System.out.println(res +" "+i.next());
+
                         Timestamp time = new Timestamp(Long.parseLong((String) i.next()));
                         int t = 0;
-                        if (timeinterval != 0)
-                            t = (int) (time.getTime() - timebegin.getTime() / timeinterval);
-
-
+                        if (timeinterval != 0) {
+                            t = (int) ((time.getTime() - timebegin.getTime()) / timeinterval);
+                            // System.out.println(t);
+                        }
                         switch (t) {
                             case 0:
                                 t0++;
@@ -143,22 +141,44 @@ public class Chooseapp extends Activity {
                                 break;
                             case 4:
                                 t4++;
+                            case 5:
+                                t4++;
                                 break;
                             default:
                                 break;
                         }
 
+
                     }
+                    // System.out.println(res +" "+t0 + " " + t1 + " " + t2 + " " + t3 + " " + t4);
                     graphsourcemap_for_one_res.put(0, t0);
                     graphsourcemap_for_one_res.put(1, t1);
                     graphsourcemap_for_one_res.put(2, t2);
                     graphsourcemap_for_one_res.put(3, t3);
                     graphsourcemap_for_one_res.put(4, t4);
-
-                    System.out.println(res +" "+t0 + " " + t1 + " " + t2 + " " + t3 + " " + t4);
                     graphsourcemap.put(res, graphsourcemap_for_one_res);
                 }
 
+// final result test
+                System.out.println("testresult");
+
+                for (String res : graphsourcemap.keySet()) {
+                    HashMap<Integer, Integer> map = graphsourcemap.get(res);
+                    System.out.println(res);
+                    for (Integer interval : map.keySet()) {
+                        System.out.println(interval);
+                        System.out.println(map.get(interval));
+
+                    }
+
+                }
+                System.out.println("endtestresult");
+//test success
+//  after this we use the graphsourcemap as the data resource for paint the image
+                Intent intent = new Intent();
+                intent.setClass(Chooseapp.this, Showimageforeachapp.class);
+                intent.putExtra("graphinfo", (Serializable) graphsourcemap);
+                startActivity(intent);
 
                 c.close();
 
@@ -209,7 +229,7 @@ public class Chooseapp extends Activity {
         return result;
     }
 
-    private void put_info_into_map(String res, String timestamp) {
+    private void put_info_into_map(MultiValueMap map_info, String res, String timestamp) {
 
         map_info.put(res, timestamp);
     }
@@ -269,8 +289,8 @@ public class Chooseapp extends Activity {
             String appname = c.getString(c.getColumnIndex("appName"));
             System.out.println("dqd");
 
-            if(!appnamelist.contains(appname))
-            appnamelist.add(appname);
+            if (!appnamelist.contains(appname))
+                appnamelist.add(appname);
         }
         c.close();
     }
