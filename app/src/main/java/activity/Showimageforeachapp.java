@@ -60,28 +60,40 @@ public class Showimageforeachapp extends Activity {
         }
 */
 
-
         init();
         initclickevent();
-
         getmylist();
 
         myrecyclerView.setHasFixedSize(true);
         myrecyclerView.setLayoutManager(new LinearLayoutManager(this));
 // graphicalview data
         ArrayList<GraphicalView> graphlist = new ArrayList<GraphicalView>();
+
         graphlist.add((GraphicalView) GraphUtils.getInstance().getmyLineChartView
                 (Showimageforeachapp.this, getmylist(),
                         "GPS"));
         graphlist.add((GraphicalView) GraphUtils.getInstance()
                 .getmyLineChartView(Showimageforeachapp.this, getmylist(),
                         "MobileData"));
+        graphlist.add((GraphicalView) GraphUtils.getInstance().getmyLineChartView
+                (Showimageforeachapp.this, getmylist(),
+                        "SMS"));
+        graphlist.add((GraphicalView) GraphUtils.getInstance()
+                .getmyLineChartView(Showimageforeachapp.this, getmylist(),
+                        "WIFI"));
+        graphlist.add((GraphicalView) GraphUtils.getInstance()
+                .getmyLineChartView(Showimageforeachapp.this, getmylist(),
+                        "Contacts"));
+
+
      // adapter data
         arrayListitem.add(new GraphItem(graphlist.get(0), "GPS"));
         arrayListitem.add(new GraphItem(graphlist.get(1), "MobileData"));
+        arrayListitem.add(new GraphItem(graphlist.get(2), "SMS"));
+        arrayListitem.add(new GraphItem(graphlist.get(3), "WIFI"));
+        arrayListitem.add(new GraphItem(graphlist.get(4), "Contacts"));
         Recyleradapter recyleradapter = new Recyleradapter(arrayListitem);
         System.out.println(recyleradapter.getItemCount());
-
         myrecyclerView.setAdapter(recyleradapter);
 
 

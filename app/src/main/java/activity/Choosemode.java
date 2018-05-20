@@ -89,7 +89,8 @@ public class Choosemode extends Activity {
             while(c.moveToNext()){
 
                 String  appname = c.getString(c.getColumnIndex("appName"));
-
+                String  res = c.getString(c.getColumnIndex("RESSOURCES"));
+                System.out.println(appname+" "+res);
             }
             c.close();
 
