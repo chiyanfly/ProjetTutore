@@ -232,7 +232,7 @@ public class Chooseapp extends Activity {
 
     private void put_info_into_map(MultiValueMap map_info, String res, String timestamp) {
 
-        //map_info.put(res, timestamp);
+        map_info.put(res, timestamp);
     }
 
 

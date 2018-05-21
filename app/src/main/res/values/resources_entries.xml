@@ -2,6 +2,7 @@
 <resources>
     <string-array name="resources">
         <item>GPS</item>
+        <item>CPU</item>
         <item>Mobile Data</item>
         <item>Wifi</item>
         <item>Bluetooth</item>
