@@ -4,13 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.JsonReader;
 import android.view.View;
-import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.example.ressources.R;
 
@@ -81,7 +77,7 @@ public class Choosemode extends Activity {
 
             for (int i = 0; i < statEntries.size(); i++) {
                 // s+=statEntries.get(i).toString()+"\n";
-                System.out.println(statEntries.get(i).toString());
+//                System.out.println(statEntries.get(i).toString());
 
                 Database.getInstance(getApplicationContext()).addData(getApplicationContext(), statEntries.get(i));
             }
@@ -93,7 +89,8 @@ public class Choosemode extends Activity {
             while(c.moveToNext()){
 
                 String  appname = c.getString(c.getColumnIndex("appName"));
-
+                String  res = c.getString(c.getColumnIndex("RESSOURCES"));
+                System.out.println(appname+" "+res);
             }
             c.close();
 

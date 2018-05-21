@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
 
 import reader.StatEntry;
 
@@ -70,6 +69,7 @@ public class Database extends SQLiteOpenHelper {
         String addRessource10 = "INSERT INTO ressources (type,ressourcegroup) VALUES ('Phone','PersonnalInformation')";
         String addRessource11 = "INSERT INTO ressources (type,ressourcegroup) VALUES ('InternalStorage','Storage')";
         String addRessource12 = "INSERT INTO ressources (type,ressourcegroup) VALUES ('ExternalStorage','Storage')";
+        String addRessource13 = "INSERT INTO ressources (type,ressourcegroup) VALUES ('CPU','Storage')";
 
         db.execSQL(enumTable);
         db.execSQL(addRessource0);
@@ -84,7 +84,7 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(addRessource9);
         db.execSQL(addRessource10);
         db.execSQL(addRessource11);
-        db.execSQL(addRessource12);
+        db.execSQL(addRessource13);
 
         String createTable = "CREATE TABLE donneesRessources("
                  +"id INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -180,7 +180,7 @@ public class Database extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put("timeStamp", statEntry.getTimestamp().getTime());
         contentValues.put("appName",statEntry.getApp_name());
-        contentValues.put("ressources", String.valueOf(statEntry.getResource()));
+        contentValues.put("ressources",statEntry.getResource());
         contentValues.put("detail",statEntry.getDetails().toString());
         db.insert("donneesRessources",null,contentValues);
         db.close();

@@ -9,20 +9,20 @@ import java.sql.Timestamp;
 
 public class StatEntry {
 
-    enum Resource {GPS, MobileData, Wifi, SMS, Contacts} ;
+   //  enum Resource {GPS, MobileData, Wifi, SMS, Contacts} ;
 
     private Timestamp timestamp;
     private String app_name;
-    private Resource resource;
+    private String resource;
     private Detail details;
 
-    public StatEntry(Timestamp timestamp, String app_name, Resource resource, Detail details) {
+    public StatEntry(Timestamp timestamp, String app_name, String resource, Detail details) {
         this.timestamp = timestamp;
         this.app_name = app_name;
         this.resource = resource;
         this.details = details;
     }
-
+/*
     public static Resource readResourceFromString(String string) {
         StatEntry.Resource resource = null;
         if (string.equals("GPS")) {
@@ -38,7 +38,7 @@ public class StatEntry {
         }
         return resource;
     }
-
+*/
     public Timestamp getTimestamp() {
         return timestamp;
     }
@@ -47,7 +47,7 @@ public class StatEntry {
         return app_name;
     }
 
-    public Resource getResource() {
+    public String getResource() {
         return resource;
     }
 

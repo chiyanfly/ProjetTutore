@@ -1,12 +1,11 @@
 package reader;
 
-import java.io.File;
+import android.util.JsonReader;
+
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import android.util.JsonReader;
 
 /**
  * Created by richa on 15/03/2018.
@@ -59,28 +58,28 @@ public class JsonFileReader  {
     private StatEntry readEntry(JsonReader reader) throws IOException, InvalidEntryException {
         Timestamp timestamp = null;
         String app_name = null;
-        StatEntry.Resource resource = null;
+        String resource = null;
         Detail detail = null;
 
         reader.beginObject();
         while (reader.hasNext()) {
             String name = reader.nextName();
-            System.out.println("name");
+           // System.out.println("name");
             if (name.equals("timestamp")) {
                // System.out.println("lalallalal");
 
                 timestamp = new Timestamp(reader.nextLong());
-                System.out.println(timestamp.toString());
+              //  System.out.println(timestamp.toString());
             } else if (name.equals("app")) {
                 app_name = reader.nextString();
-                System.out.println(app_name);
+              //  System.out.println(app_name);
             } else if (name.equals("resource")) {
-                resource = StatEntry.readResourceFromString(reader.nextString());
-                System.out.println(resource);
+                resource = reader.nextString();
+              //  System.out.println(resource);
             } else if (name.equals("detail")) {
                 detail=readDetail(reader);
 
-                System.out.println("detail");
+                //System.out.println("detail");
             } else {
                 throw new InvalidEntryException();
             }

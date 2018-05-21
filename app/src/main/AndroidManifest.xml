@@ -49,13 +49,12 @@
 
         </activity>
 
-        <uses-library android:name="android.test.runner"/>
-        
-    </application>
 
-    <instrumentation
-        android:name="android.test.InstrumentationTestRunner"
-        android:targetPackage="Database">
-    </instrumentation>
+        <activity android:name="activity.Showimageforeachapp">
+
+
+        </activity>
+
+    </application>
 
 </manifest>
