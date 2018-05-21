@@ -53,7 +53,7 @@ public class Choosemode extends Activity {
         databasehandler.getDatabase().affichetable(getApplicationContext(),"oneHour");
 
 
-        databasehandler.cleandata("fiveMinutes");
+       // databasehandler.cleandata("fiveMinutes");
         databasehandler.getDatabase().affichetable(getApplicationContext(),"fiveMinutes");
 
 

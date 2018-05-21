@@ -17,9 +17,8 @@ import org.apache.commons.collections.map.MultiValueMap;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
+
 import database.Database;
 
 /**
@@ -59,9 +58,9 @@ public class Chooseapp extends Activity {
 
         setContentView(R.layout.chooseapp);
 
+        database= Database.getInstance(getApplicationContext());
 
-        database = Database.getInstance(getApplicationContext());
-        getdata();
+        getappname("fiveMinutes");
         appnamelistview = (ListView) findViewById(R.id.id_applist);
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(Chooseapp.this,
                 android.R.layout.simple_list_item_1, appnamelist);
@@ -71,11 +70,23 @@ public class Chooseapp extends Activity {
         appnamelistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //TODO
-                MultiValueMap map_info = new MultiValueMap();
+
                 String appname = appnamelist.get(position);
                 System.out.println(appname);
-                String sql = "select * from donneesRessources where appName = '" + appname + "'";
+                HashMap<String, HashMap<Integer, Integer>> graphsourcemap
+               = DataToimagetool.Table_to_graphsourcemap(getApplicationContext(),appname,"fiveMinutes");
+
+                Intent intent = new Intent();
+                intent.setClass(Chooseapp.this, Showimageforeachapp.class);
+                intent.putExtra("graphinfo", (Serializable) graphsourcemap);
+                intent.putExtra("appname",appname);
+                startActivity(intent);
+
+
+                /*
+                MultiValueMap map_info = new MultiValueMap();
+
+                String sql = "select * from fiveMinutes where appName = '" + appname + "'";
 
                 Cursor c = database.searchdata(getApplicationContext(), sql);
 
@@ -176,13 +187,11 @@ public class Chooseapp extends Activity {
                 }
                 System.out.println("endtestresult");
 //test success
-*/// after this we use the graphsourcemap as the data resource for paint the image
-                Intent intent = new Intent();
-                intent.setClass(Chooseapp.this, Showimageforeachapp.class);
-                intent.putExtra("graphinfo", (Serializable) graphsourcemap);
-                startActivity(intent);
+ after this we use the graphsourcemap as the data resource for paint the image
 
-                c.close();
+
+                */
+
 
             }
         });
@@ -280,10 +289,11 @@ public class Chooseapp extends Activity {
 
 
     // get appname from the database and put it in the appnamelist
-    void getdata() {
+    void getappname(String tablename) {
 
         // select appname from table
-        Cursor c = database.searchdata(getApplicationContext(), "select appName from donneesRessources");
+        String sql="select appName from "+tablename;
+        Cursor c = database.searchdata(getApplicationContext(), sql);
         while (c.moveToNext()) {
 
             String appname = c.getString(c.getColumnIndex("appName"));

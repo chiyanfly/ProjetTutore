@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.example.ressources.GraphUtils;
 import com.example.ressources.Pie;
 import com.example.ressources.R;
-import com.example.ressources.Recyleradapter;
 import com.example.ressources.StudentGradeMessage;
 
 import org.achartengine.GraphicalView;
@@ -28,6 +27,7 @@ import java.util.Map;
 
 import supportelement.GraphItem;
 import supportelement.Interval;
+import supportelement.Recyleradapter;
 
 /**
  * Created by hxu on 04/04/18.
@@ -37,73 +37,40 @@ import supportelement.Interval;
 public class Showimageforeachapp extends Activity {
 
     private Button CPU, GPS;
-    private Spinner time;
-    private Spinner resource;
+    private Spinner Spinner_time;
+    private Spinner Spinner_resource;
     private LinearLayout framelist;
     private android.support.v7.widget.RecyclerView myrecyclerView;
     private ArrayList<GraphItem> arrayListitem = new ArrayList<>();
     HashMap<String, HashMap<Integer, Integer>> graphsourcemap;
+    private String appname;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.showimageforeachapp);
 
+        init();
+        initclickevent();
 
         Intent intent = getIntent();
         graphsourcemap = (HashMap<String, HashMap<Integer, Integer>>) intent.getSerializableExtra("graphinfo");
+        appname = intent.getStringExtra("appname");
 
+/* test
         for (String res : graphsourcemap.keySet()) {
             HashMap<Integer, Integer> map = graphsourcemap.get(res);
             System.out.println(res);
             for (Integer interval : map.keySet()) {
-                System.out.print(interval+" "+map.get(interval)+" ");
-
-
+                System.out.print(interval + " " + map.get(interval) + " ");
             }
             System.out.println(" ");
-
         }
 
-
-        init();
-        initclickevent();
-        getmylist();
-
-        myrecyclerView.setHasFixedSize(true);
-        myrecyclerView.setLayoutManager(new LinearLayoutManager(this));
-// graphicalview data
-        ArrayList<GraphicalView> graphlist = new ArrayList<GraphicalView>();
-
-        graphlist.add((GraphicalView) GraphUtils.getInstance().getmyLineChartView
-                (Showimageforeachapp.this, getmylist(),
-                        "GPS"));
-        graphlist.add((GraphicalView) GraphUtils.getInstance()
-                .getmyLineChartView(Showimageforeachapp.this, getmylist(),
-                        "MobileData"));
-        graphlist.add((GraphicalView) GraphUtils.getInstance().getmyLineChartView
-                (Showimageforeachapp.this, getmylist(),
-                        "SMS"));
-        graphlist.add((GraphicalView) GraphUtils.getInstance()
-                .getmyLineChartView(Showimageforeachapp.this, getmylist(),
-                        "WIFI"));
-        graphlist.add((GraphicalView) GraphUtils.getInstance()
-                .getmyLineChartView(Showimageforeachapp.this, getmylist(),
-                        "Contacts"));
+*/
+        put_imagedata(getmylist());
 
 
-     // adapter data
-        arrayListitem.add(new GraphItem(graphlist.get(0), "GPS"));
-        arrayListitem.add(new GraphItem(graphlist.get(1), "MobileData"));
-        arrayListitem.add(new GraphItem(graphlist.get(2), "SMS"));
-        arrayListitem.add(new GraphItem(graphlist.get(3), "WIFI"));
-        arrayListitem.add(new GraphItem(graphlist.get(4), "Contacts"));
-        Recyleradapter recyleradapter = new Recyleradapter(arrayListitem);
-        System.out.println(recyleradapter.getItemCount());
-        myrecyclerView.setAdapter(recyleradapter);
-
-
-        //click event for button
 
 
     }
@@ -136,37 +103,35 @@ public class Showimageforeachapp extends Activity {
     //timedureee
 
 
-    public List<HashMap<Integer, Interval>> getmylist() {
 
+
+    public List<HashMap<Integer, Interval>> getmylist() {
 
         List<HashMap<Integer, Interval>> infolist = new ArrayList<HashMap<Integer, Interval>>();
         Interval interval;
-
         ArrayList<Interval> intercvallsit = new ArrayList<>();
         int numinterval = 0;
-        while (numinterval <5) {
+        while (numinterval < 5) {
 
             intercvallsit.add(new Interval(numinterval));
             numinterval++;
         }
-
         for (String res : graphsourcemap.keySet()) {
             HashMap<Integer, Integer> map = graphsourcemap.get(res);
             int index = 0;
             for (Interval i : intercvallsit) {
-             i.setvalue(res, map.get(index));
+                i.setvalue(res, map.get(index));
                 index++;
             }
 
-
         }
 // put the dada inyo map
-            for (Interval in :intercvallsit){
-              //  System.out.println(interval1.toString());
-                Map<Integer, Interval> infomap = new HashMap<>();
-                infomap.put(1,in);
-                infolist.add((HashMap<Integer, Interval>) infomap);
-            }
+        for (Interval in : intercvallsit) {
+            //  System.out.println(interval1.toString());
+            Map<Integer, Interval> infomap = new HashMap<>();
+            infomap.put(1, in);
+            infolist.add((HashMap<Integer, Interval>) infomap);
+        }
 
 
         return infolist;
@@ -275,8 +240,9 @@ public class Showimageforeachapp extends Activity {
 
     void init() {
 
-        time = (Spinner) findViewById(R.id.time_in_mine);
-        resource = (Spinner) findViewById(R.id.resource_in_mine);
+        Spinner_time = (Spinner) findViewById(R.id.time_in_mine);
+
+        Spinner_resource = (Spinner) findViewById(R.id.resource_in_mine);
 /*        CPU = (Button) findViewById(R.id.showimage_CPU);
         GPS = (Button) findViewById(R.id.showimage_GPS);*/
         myrecyclerView = (RecyclerView) findViewById(R.id.showimage_recycler);
@@ -288,22 +254,28 @@ public class Showimageforeachapp extends Activity {
     void initclickevent() {
 
 
-        time.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        Spinner_time.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String sInfo = parent.getItemAtPosition(position).toString();
-                if(sInfo.equals("Five Minutes")){
+                if (sInfo.equals("Five Minutes")) {
                     //when user choose five minutes
-                    Toast.makeText(getApplicationContext(),sInfo,Toast.LENGTH_LONG).show();
-                }else if(sInfo.equals("One Hour")){
+
+                    updateimage("fiveMinutes");
+                    Toast.makeText(getApplicationContext(), sInfo, Toast.LENGTH_LONG).show();
+                } else if (sInfo.equals("One Hour")) {
                     //when user choose one hour
-                    Toast.makeText(getApplicationContext(),sInfo,Toast.LENGTH_LONG).show();
-                }else if(sInfo.equals("One Week")){
+
+                    updateimage("oneHour");
+
+
+                    Toast.makeText(getApplicationContext(), sInfo, Toast.LENGTH_LONG).show();
+                } else if (sInfo.equals("One Week")) {
                     //when user choose one week
-                    Toast.makeText(getApplicationContext(),sInfo,Toast.LENGTH_LONG).show();
-                }else if(sInfo.equals("One Month")){
+                    Toast.makeText(getApplicationContext(), sInfo, Toast.LENGTH_LONG).show();
+                } else if (sInfo.equals("One Month")) {
                     //when user choose one month
-                    Toast.makeText(getApplicationContext(),sInfo,Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), sInfo, Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -313,11 +285,11 @@ public class Showimageforeachapp extends Activity {
             }
         });
 
-        resource.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        Spinner_resource.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String rInfo = parent.getItemAtPosition(position).toString();
-                switch (rInfo){
+                switch (rInfo) {
                     case "GPS":
                         int pos1 = 0;
                         for (GraphItem g : arrayListitem) {
@@ -341,7 +313,7 @@ public class Showimageforeachapp extends Activity {
                         }
                         break;
                     case "Mobile Data":
-                        Toast.makeText(getApplicationContext(),rInfo,Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), rInfo, Toast.LENGTH_LONG).show();
                         break;
                     case "Wifi":
 
@@ -416,4 +388,54 @@ public class Showimageforeachapp extends Activity {
 */
 
     }
+
+    // this fonction is used for updating the image with the time interval choosen
+    private void updateimage(String tablename) {
+
+
+        graphsourcemap = DataToimagetool.Table_to_graphsourcemap(getApplicationContext(), appname, tablename);
+        put_imagedata(getmylist());
+
+
+    }
+
+
+    private void put_imagedata(List<HashMap<Integer, Interval>> datalist){
+
+        arrayListitem.clear();
+        myrecyclerView.setHasFixedSize(true);
+        myrecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        ArrayList<GraphicalView> graphlist = new ArrayList<GraphicalView>();
+        graphlist.add((GraphicalView) GraphUtils.getInstance().getmyLineChartView
+                (Showimageforeachapp.this, datalist,
+                        "GPS"));
+        graphlist.add((GraphicalView) GraphUtils.getInstance()
+                .getmyLineChartView(Showimageforeachapp.this,datalist,
+                        "MobileData"));
+        graphlist.add((GraphicalView) GraphUtils.getInstance().getmyLineChartView
+                (Showimageforeachapp.this, datalist,
+                        "SMS"));
+        graphlist.add((GraphicalView) GraphUtils.getInstance()
+                .getmyLineChartView(Showimageforeachapp.this, datalist,
+                        "WIFI"));
+        graphlist.add((GraphicalView) GraphUtils.getInstance()
+                .getmyLineChartView(Showimageforeachapp.this, datalist,
+                        "Contacts"));
+
+
+        // adapter data
+        arrayListitem.add(new GraphItem(graphlist.get(0), "GPS"));
+        arrayListitem.add(new GraphItem(graphlist.get(1), "MobileData"));
+        arrayListitem.add(new GraphItem(graphlist.get(2), "SMS"));
+        arrayListitem.add(new GraphItem(graphlist.get(3), "WIFI"));
+        arrayListitem.add(new GraphItem(graphlist.get(4), "Contacts"));
+        Recyleradapter recyleradapter = new Recyleradapter(arrayListitem);
+        System.out.println(recyleradapter.getItemCount());
+        myrecyclerView.setAdapter(recyleradapter);
+
+
+    }
+
+
+
 }

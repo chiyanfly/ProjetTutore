@@ -26,8 +26,6 @@ public class testjson extends Activity {
 
 
 
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,14 +57,7 @@ public class testjson extends Activity {
 
 
 
-
-
         database.searchdata(getApplicationContext(),"");
-
-
-
-
-
 
 
 

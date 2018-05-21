@@ -1,5 +1,6 @@
-[   
-
+[
+    {"timestamp":1522857960, "app":"myApp0", "resource":"CPU", "detail":{}},
+    {"timestamp":1522857970, "app":"myApp0", "resource":"GPS", "detail":{}},
     {"timestamp":1522857980, "app":"myApp1", "resource":"MobileData", "detail":{}},
     {"timestamp":1522857990, "app":"myApp1", "resource":"MobileData", "detail":{}},
     {"timestamp":1522857910, "app":"myApp1", "resource":"MobileData", "detail":{}},

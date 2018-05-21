@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -15,7 +14,6 @@ import android.widget.Toast;
 import com.example.ressources.GraphUtils;
 import com.example.ressources.Pie;
 import com.example.ressources.R;
-import com.example.ressources.Recyleradapter;
 import com.example.ressources.StudentGradeMessage;
 
 import org.achartengine.GraphicalView;
@@ -26,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import supportelement.GraphItem;
+import supportelement.Recyleradapter;
 
 /**
  * Created by hxu on 04/04/18.
