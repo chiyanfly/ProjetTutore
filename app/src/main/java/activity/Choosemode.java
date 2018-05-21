@@ -97,10 +97,6 @@ public class Choosemode extends Activity {
             }
             c.close();
 
-
-
-
-
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

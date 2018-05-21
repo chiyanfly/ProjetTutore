@@ -225,13 +225,21 @@ public class Database extends SQLiteOpenHelper {
         }
     }
 
+    public int requete(Context context){
+        SQLiteDatabase db = Database.getInstance(context).getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from ressources",null);
+        while (cursor.moveToNext()){
+            String toPrint =  cursor.getString(cursor.getColumnIndex("type"));
+            System.out.println(toPrint);
+        }
+        return 1;
+    }
+
     public void deletealldata(Context context) {
 
         SQLiteDatabase db = Database.getInstance(context).getWritableDatabase();
 
         db.delete("donneesRessources",null,null);
         db.close();
-
-
     }
 }
