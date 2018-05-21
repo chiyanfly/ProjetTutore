@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="resources">
+        <item>GPS</item>
+        <item>Mobile Data</item>
+        <item>Wifi</item>
+        <item>Bluetooth</item>
+        <item>NFC</item>
+        <item>Camera</item>
+        <item>Sensors</item>
+        <item>SMS</item>
+        <item>Contacts</item>
+        <item>Phone</item>
+        <item>Intenal Memory</item>
+        <item>External Memory</item>
+    </string-array>
+</resources>

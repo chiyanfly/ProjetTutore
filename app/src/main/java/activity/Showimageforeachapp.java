@@ -7,8 +7,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.ressources.GraphUtils;
 import com.example.ressources.Pie;
@@ -34,6 +37,8 @@ import supportelement.Interval;
 public class Showimageforeachapp extends Activity {
 
     private Button CPU, GPS;
+    private Spinner time;
+    private Spinner resource;
     private LinearLayout framelist;
     private android.support.v7.widget.RecyclerView myrecyclerView;
     private ArrayList<GraphItem> arrayListitem = new ArrayList<>();
@@ -270,8 +275,10 @@ public class Showimageforeachapp extends Activity {
 
     void init() {
 
-        CPU = (Button) findViewById(R.id.showimage_CPU);
-        GPS = (Button) findViewById(R.id.showimage_GPS);
+        time = (Spinner) findViewById(R.id.time_in_mine);
+        resource = (Spinner) findViewById(R.id.resource_in_mine);
+/*        CPU = (Button) findViewById(R.id.showimage_CPU);
+        GPS = (Button) findViewById(R.id.showimage_GPS);*/
         myrecyclerView = (RecyclerView) findViewById(R.id.showimage_recycler);
 
 
@@ -280,7 +287,103 @@ public class Showimageforeachapp extends Activity {
 
     void initclickevent() {
 
-        CPU.setOnClickListener(new View.OnClickListener() {
+
+        time.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String sInfo = parent.getItemAtPosition(position).toString();
+                if(sInfo.equals("Five Minutes")){
+                    //when user choose five minutes
+                    Toast.makeText(getApplicationContext(),sInfo,Toast.LENGTH_LONG).show();
+                }else if(sInfo.equals("One Hour")){
+                    //when user choose one hour
+                    Toast.makeText(getApplicationContext(),sInfo,Toast.LENGTH_LONG).show();
+                }else if(sInfo.equals("One Week")){
+                    //when user choose one week
+                    Toast.makeText(getApplicationContext(),sInfo,Toast.LENGTH_LONG).show();
+                }else if(sInfo.equals("One Month")){
+                    //when user choose one month
+                    Toast.makeText(getApplicationContext(),sInfo,Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        resource.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String rInfo = parent.getItemAtPosition(position).toString();
+                switch (rInfo){
+                    case "GPS":
+                        int pos1 = 0;
+                        for (GraphItem g : arrayListitem) {
+
+                            if (g.getTag().equals("GPS")) {
+
+                                myrecyclerView.smoothScrollToPosition(pos1);
+
+                            }
+
+                        }
+                        break;
+                    case "CPU":
+                        int pos2 = 0;
+                        for (GraphItem g : arrayListitem) {
+
+                            if (g.getTag().equals("CPU")) {
+                                myrecyclerView.smoothScrollToPosition(pos2);
+                            }
+
+                        }
+                        break;
+                    case "Mobile Data":
+                        Toast.makeText(getApplicationContext(),rInfo,Toast.LENGTH_LONG).show();
+                        break;
+                    case "Wifi":
+
+                        break;
+                    case "Bluetooth":
+
+                        break;
+                    case "NFC":
+
+                        break;
+                    case "Camera":
+
+                        break;
+                    case "Sensors":
+
+                        break;
+                    case "SMS":
+
+                        break;
+                    case "Contacts":
+
+                        break;
+                    case "Phone":
+
+                        break;
+                    case "Intenal Memory":
+
+                        break;
+                    case "External Memory":
+
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+     /*   CPU.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int position = 0;
@@ -310,7 +413,7 @@ public class Showimageforeachapp extends Activity {
                 }
             }
         });
-
+*/
 
     }
 }
