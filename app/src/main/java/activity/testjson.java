@@ -8,12 +8,9 @@ import android.widget.TextView;
 
 import com.example.ressources.R;
 
-import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
 import java.util.ArrayList;
 
 import Database.Database;
@@ -45,10 +42,6 @@ public class testjson extends Activity {
          Database database= new Database(getApplicationContext());
 
 
-
-
-
-
         try {
             JsonReader j = new JsonReader(new InputStreamReader(in,"UTF-8"));
 
@@ -61,7 +54,7 @@ public class testjson extends Activity {
            // s+=statEntries.get(i).toString()+"\n";
             System.out.println(statEntries.get(i).toString());
 
-            database.addData(getApplicationContext(),statEntries.get(i));
+            database.addData(getApplicationContext(),statEntries.get(i),"donneesRessources");
         }
 
 

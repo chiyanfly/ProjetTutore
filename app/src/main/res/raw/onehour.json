@@ -1,0 +1,25 @@
+[   
+    {"timestamp":1522857900, "app":"myApp0", "resource":"CPU", "detail":{}},
+    {"timestamp":1522857910, "app":"myApp0", "resource":"GPS", "detail":{}},
+    {"timestamp":1522857920, "app":"myApp0", "resource":"MobileData", "detail":{}},
+    {"timestamp":1522857930, "app":"myApp0", "resource":"GPS", "detail":{}},
+    {"timestamp":1522857940, "app":"myApp0", "resource":"SMS", "detail":{}},
+    {"timestamp":1522857970, "app":"myApp0", "resource":"Wifi", "detail":{}},
+    {"timestamp":1522857980, "app":"myApp0", "resource":"Contacts", "detail":{}},
+    {"timestamp":1522857990, "app":"myApp0", "resource":"Wifi", "detail":{}},
+    {"timestamp":1522858100, "app":"myApp0", "resource":"Wifi", "detail":{}},
+    {"timestamp":1522858110, "app":"myApp0", "resource":"Contacts", "detail":{}},
+    {"timestamp":1522858120, "app":"myApp0", "resource":"Wifi", "detail":{}},
+    {"timestamp":1522858130, "app":"myApp0", "resource":"SMS", "detail":{}},
+    {"timestamp":1522858140, "app":"myApp0", "resource":"Wifi", "detail":{}},
+    {"timestamp":1522858150, "app":"myApp0", "resource":"Wifi", "detail":{}},
+    {"timestamp":1522858160, "app":"myApp0", "resource":"SMS", "detail":{}},
+    {"timestamp":1522858170, "app":"myApp0", "resource":"Wifi", "detail":{}},
+
+
+
+
+
+
+
+]

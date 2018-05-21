@@ -90,6 +90,6 @@ public class JsonFileReader  {
 
     private Detail readDetail(JsonReader reader) throws IOException {
         reader.skipValue();
-        return new Detail();
+        return new Detail("");
     }
 }

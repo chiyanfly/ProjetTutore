@@ -6,8 +6,17 @@ package reader;
 
 public class Detail {
 
+
+    String detail;
+
+
+    public  Detail(String d){
+
+        detail=d;
+    }
+
     @Override
     public String toString() {
-        return "";
+        return detail;
     }
 }
