@@ -20,8 +20,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
-
-import Database.Database;
+import database.Database;
 
 /**
  * Created by hxu on 15/05/18.
@@ -59,6 +58,7 @@ public class Chooseapp extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.chooseapp);
+
 
         database = Database.getInstance(getApplicationContext());
         getdata();
@@ -107,6 +107,7 @@ public class Chooseapp extends Activity {
                 for (String res : reslist) {
 
                     HashMap<Integer, Integer> graphsourcemap_for_one_res = new HashMap<>();
+                    System.out.println(res);
                     Collection timecollection_for_one_res = map_info.getCollection(res);
                     Iterator i = timecollection_for_one_res.iterator();
 

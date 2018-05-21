@@ -23,7 +23,6 @@ public class TestActivity extends Activity {
         super.onCreate(savedInstanceState);
 
 
-
         setContentView(R.layout.testitem);
 
 
@@ -36,14 +35,8 @@ public class TestActivity extends Activity {
                 .getLineChartView(TestActivity.this, mine_main_activity.getlist(),
                         "B"));
 
-linearLayout.removeAllViews();
+        linearLayout.removeAllViews();
         linearLayout.addView(graphlist.get(0));
-
-
-
-
-
-
 
 
     }

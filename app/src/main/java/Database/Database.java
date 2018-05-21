@@ -1,4 +1,4 @@
-package Database;
+package database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -20,6 +20,7 @@ public class Database extends SQLiteOpenHelper {
     private final static int VERSION = 1;
     //  enum Resource {GPS, MobileData, Wifi, SMS, Contacts} ;
     private static Database instance = null;
+    SQLiteDatabase db;
 
     public static Database getInstance(Context context) {
         if (instance == null) {
@@ -140,11 +141,15 @@ public class Database extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
 
+    public  void createsqlitedatabase(Context context){
 
+         db = Database.getInstance(context).getWritableDatabase();
+
+    }
     public Cursor searchdata(Context context, String sql) {
 
 
-        SQLiteDatabase db = Database.getInstance(context).getWritableDatabase();
+
 
 
         String columns[] = {"id", "timeStamp", "appName", "RESSOURCES"};
@@ -176,24 +181,24 @@ public class Database extends SQLiteOpenHelper {
     //to add datas
     public void addData(Context context, StatEntry statEntry, String tablename) {
 
-        SQLiteDatabase db = Database.getInstance(context).getWritableDatabase();
+      //  SQLiteDatabase db = Database.getInstance(context).getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("timeStamp", statEntry.getTimestamp().getTime());
         contentValues.put("appName", statEntry.getApp_name());
         contentValues.put("ressources", statEntry.getResource());
         contentValues.put("detail", statEntry.getDetails().toString());
         db.insert(tablename, null, contentValues);
-        db.close();
+
 
     }
-
+/*
     // on utilise jamais
     private void deleteData(Context context, int id, String tablename) {
         SQLiteDatabase db = Database.getInstance(context).getWritableDatabase();
         db.delete(tablename, "id=" + id, null);
         db.close();
     }
-
+*/
     // 5 min to hour
     private void toHour(Context context) {
 
@@ -227,18 +232,18 @@ public class Database extends SQLiteOpenHelper {
 
     public void deletealldata(Context context, String tablename) {
 
-        SQLiteDatabase db = Database.getInstance(context).getWritableDatabase();
+        //SQLiteDatabase db = Database.getInstance(context).getWritableDatabase();
 
         db.delete(tablename, null, null);
-        db.close();
+       // db.close();
 
 
     }
 
     public void affichetable(Context context, String tablename) {
-        SQLiteDatabase database = Database.getInstance(context).getWritableDatabase();
+       // SQLiteDatabase database = Database.getInstance(context).getWritableDatabase();
         String sql = "select * from " + tablename;
-        Cursor cursor = database.rawQuery(sql, null);
+        Cursor cursor = db.rawQuery(sql, null);
 
         System.out.println("tablename : " + tablename);
         System.out.println("timestamp  |  appname  |  res  |  detail");

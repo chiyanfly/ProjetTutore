@@ -13,7 +13,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
-import Database.Database;
+import database.Database;
 import reader.JsonFileReader;
 import reader.StatEntry;
 

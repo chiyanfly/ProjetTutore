@@ -13,7 +13,7 @@ import com.example.ressources.R;
 
 import java.util.ArrayList;
 
-import Database.Database;
+import database.Database;
 
 /**
  * Created by hxu on 15/05/18.
