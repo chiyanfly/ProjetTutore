@@ -55,9 +55,7 @@ public class Choosemode extends Activity {
             public void onClick(View v) {
                /* Intent i = new Intent(Choosemode.this, Chooseres.class);
                 startActivity(i);*/
-
-
-               Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext());
+               Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"donneesRessources");
             }
         });
 
@@ -79,7 +77,7 @@ public class Choosemode extends Activity {
                 // s+=statEntries.get(i).toString()+"\n";
 //                System.out.println(statEntries.get(i).toString());
 
-                Database.getInstance(getApplicationContext()).addData(getApplicationContext(), statEntries.get(i));
+                Database.getInstance(getApplicationContext()).addData(getApplicationContext(), statEntries.get(i),"donneesRessources");
             }
 
         // for output the database to see
@@ -90,9 +88,10 @@ public class Choosemode extends Activity {
 
                 String  appname = c.getString(c.getColumnIndex("appName"));
                 String  res = c.getString(c.getColumnIndex("RESSOURCES"));
-                System.out.println(appname+" "+res);
+               // System.out.println(appname+" "+res);
             }
             c.close();
+
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

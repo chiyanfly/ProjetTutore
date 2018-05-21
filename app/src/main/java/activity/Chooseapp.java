@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+
 import Database.Database;
 
 /**
@@ -100,7 +101,7 @@ public class Chooseapp extends Activity {
                 Timestamp timeend = endtime(timelist);
                 long timeinterval = (timeend.getTime() - timebegin.getTime()) / 5;
 // let's say we just divide the interval into 5 parts
-// System.out.println(timebegin.getTime() + " " + timeend.getTime() + " " + timeinterval);
+ System.out.println(timebegin.getTime() + " " + timeend.getTime() + " " + timeinterval);
                 HashMap<String, HashMap<Integer, Integer>> graphsourcemap = new HashMap<>();
 
                 for (String res : reslist) {
@@ -140,6 +141,7 @@ public class Chooseapp extends Activity {
                                 break;
                             case 4:
                                 t4++;
+                                break;
                             case 5:
                                 t4++;
                                 break;
@@ -158,7 +160,7 @@ public class Chooseapp extends Activity {
                     graphsourcemap.put(res, graphsourcemap_for_one_res);
                 }
 
-// final result test
+/* final result test
                 System.out.println("testresult");
 
                 for (String res : graphsourcemap.keySet()) {
@@ -173,7 +175,7 @@ public class Chooseapp extends Activity {
                 }
                 System.out.println("endtestresult");
 //test success
-//  after this we use the graphsourcemap as the data resource for paint the image
+*/// after this we use the graphsourcemap as the data resource for paint the image
                 Intent intent = new Intent();
                 intent.setClass(Chooseapp.this, Showimageforeachapp.class);
                 intent.putExtra("graphinfo", (Serializable) graphsourcemap);
@@ -281,12 +283,9 @@ public class Chooseapp extends Activity {
 
         // select appname from table
         Cursor c = database.searchdata(getApplicationContext(), "select appName from donneesRessources");
-
-
         while (c.moveToNext()) {
 
             String appname = c.getString(c.getColumnIndex("appName"));
-            System.out.println("dqd");
 
             if (!appnamelist.contains(appname))
                 appnamelist.add(appname);

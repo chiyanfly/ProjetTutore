@@ -52,18 +52,19 @@ public class Showimageforeachapp extends Activity {
 
         Intent intent = getIntent();
         graphsourcemap = (HashMap<String, HashMap<Integer, Integer>>) intent.getSerializableExtra("graphinfo");
-/*
+
         for (String res : graphsourcemap.keySet()) {
             HashMap<Integer, Integer> map = graphsourcemap.get(res);
             System.out.println(res);
             for (Integer interval : map.keySet()) {
-                System.out.println(interval);
-                System.out.println(map.get(interval));
+                System.out.print(interval+" "+map.get(interval)+" ");
+
 
             }
+            System.out.println(" ");
 
         }
-*/
+
 
         init();
         initclickevent();
@@ -151,7 +152,6 @@ public class Showimageforeachapp extends Activity {
 
         for (String res : graphsourcemap.keySet()) {
             HashMap<Integer, Integer> map = graphsourcemap.get(res);
-
             int index = 0;
             for (Interval i : intercvallsit) {
              i.setvalue(res, map.get(index));
