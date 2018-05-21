@@ -15,10 +15,10 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
-import Database.Database;
+import database.Database;
+import database.Databasehandler;
 import reader.JsonFileReader;
 import reader.StatEntry;
-
 /**
  * Created by 张广洁 on 2018/3/15.
  */
@@ -38,8 +38,28 @@ public class Choosemode extends Activity {
 
         //database= new Database(getApplicationContext());
 
+        Databasehandler databasehandler= new Databasehandler(getApplicationContext());
 
-        adddata();
+        databasehandler.initdata("fiveminutes","fiveMinutes");
+        databasehandler.initdata("onehour","oneHour");
+        databasehandler.initdata("onehour","donneesRessources");
+
+        databasehandler.getDatabase().affichetable(getApplicationContext(),"fiveMinutes");
+        databasehandler.getDatabase().affichetable(getApplicationContext(),"oneHour");
+
+
+
+        databasehandler.copydata("fiveMinutes","oneHour");
+        databasehandler.getDatabase().affichetable(getApplicationContext(),"oneHour");
+
+
+        databasehandler.cleandata("fiveMinutes");
+        databasehandler.getDatabase().affichetable(getApplicationContext(),"fiveMinutes");
+
+
+
+
+        //  adddata();
         //We will go to the page app
         gotoApp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +75,9 @@ public class Choosemode extends Activity {
             public void onClick(View v) {
                /* Intent i = new Intent(Choosemode.this, Chooseres.class);
                 startActivity(i);*/
-               Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"donneesRessources");
+               Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"fiveMinutes");
+                Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"oneHour");
+                Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"donneesRessources");
             }
         });
 

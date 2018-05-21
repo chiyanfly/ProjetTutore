@@ -1,4 +1,4 @@
-package Database;
+package database;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -26,25 +26,12 @@ import reader.StatEntry;
   */
 public class Databasehandler {
 
-
-    private static Databasehandler databasehandler = null;
     private Database database;
     Context context;
-
-
-    public static Databasehandler gethandler(Context context) {
-
-        if (databasehandler == null) {
-            databasehandler = new Databasehandler(context);
-        }
-        return databasehandler;
-
-    }
-
-
     public Databasehandler(Context c) {
         context = c;
         database = Database.getInstance(context);
+        database.createsqlitedatabase(context);
     }
 
 /*
@@ -55,7 +42,11 @@ public class Databasehandler {
 * */
 
 
-    private void copydata(String table1, String table2) {
+    public Database getDatabase() {
+        return database;
+    }
+
+    public void copydata(String table1, String table2) {
 
         String sql = "select * from " + table1;
         Cursor cursor = database.searchdata(context, sql);
@@ -76,19 +67,18 @@ public class Databasehandler {
         cursor.close();
 
     }
-
     /*
     *
     * delete all the existing data in the table
     * */
-    private void cleandata(String tablename) {
+    public void cleandata(String tablename) {
 
         database.deletealldata(context, tablename);
 
     }
 // just for testing . initialise the data for data move test
 
-    private void initdata(String filename, String tablmename) {
+    public void initdata(String filename, String tablmename) {
         InputStream in = context.getResources().openRawResource(context.getResources().getIdentifier(filename, "raw", context.getPackageName()));
         JsonFileReader reader = new JsonFileReader();
         try {
