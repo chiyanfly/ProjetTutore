@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import database.Database;
+import Database.Database;
 
 /**
  * Created by XH on 21/05/2018.

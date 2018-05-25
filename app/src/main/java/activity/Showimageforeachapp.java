@@ -37,7 +37,6 @@ import tool.DataToimagetool;
 
 public class Showimageforeachapp extends Activity {
 
-    private Button CPU, GPS;
     private Spinner Spinner_time;
     private Spinner Spinner_resource;
     private LinearLayout framelist;
@@ -322,31 +321,6 @@ public class Showimageforeachapp extends Activity {
                     case "Bluetooth":
 
                         break;
-                    case "NFC":
-
-                        break;
-                    case "Camera":
-
-                        break;
-                    case "Sensors":
-
-                        break;
-                    case "SMS":
-
-                        break;
-                    case "Contacts":
-
-                        break;
-                    case "Phone":
-
-                        break;
-                    case "Intenal Memory":
-
-                        break;
-                    case "External Memory":
-
-                        break;
-
                 }
             }
 

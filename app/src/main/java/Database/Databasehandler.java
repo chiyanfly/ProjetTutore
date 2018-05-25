@@ -1,4 +1,4 @@
-package database;
+package Database;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -67,6 +67,7 @@ public class Databasehandler {
         cursor.close();
 
     }
+
     /*
     *
     * delete all the existing data in the table

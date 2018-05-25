@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.util.JsonReader;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,8 +16,8 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
-import database.Database;
-import database.Databasehandler;
+import Database.Database;
+import Database.Databasehandler;
 import reader.JsonFileReader;
 import reader.StatEntry;
 /**
@@ -32,8 +33,8 @@ public class Choosemode extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sort);
-        ImageView gotoApp = (ImageView) findViewById(R.id.gotoApp);
-        ImageView gotoRessource = (ImageView) findViewById(R.id.gotoRessource);
+        CardView gotoApp = (CardView) findViewById(R.id.gotoApp);
+        CardView gotoRessource = (CardView) findViewById(R.id.gotoRessource);
         // create database  firstly
 
         //database= new Database(getApplicationContext());
