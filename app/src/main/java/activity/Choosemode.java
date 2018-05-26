@@ -49,12 +49,12 @@ public class Choosemode extends Activity {
 
 
 
-        databasehandler.copydata("fiveMinutes","oneHour");
-        databasehandler.getDatabase().affichetable(getApplicationContext(),"oneHour");
+       // databasehandler.copydata("fiveMinutes","oneHour");
+      //  databasehandler.getDatabase().affichetable(getApplicationContext(),"oneHour");
 
 
        // databasehandler.cleandata("fiveMinutes");
-        databasehandler.getDatabase().affichetable(getApplicationContext(),"fiveMinutes");
+        //databasehandler.getDatabase().affichetable(getApplicationContext(),"fiveMinutes");
 
 
 
@@ -64,21 +64,26 @@ public class Choosemode extends Activity {
         gotoApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+              /*  Intent i = new Intent(Choosemode.this, Chooseapp.class);
+                startActivity(i);
+                Choosemode.this.finish();*/
                 Intent i = new Intent(Choosemode.this, Chooseapp.class);
                 startActivity(i);
                 Choosemode.this.finish();
+
+
             }
         });
         //Click this image, we will goto the page ressource
         gotoRessource.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Choosemode.this, Chooseres.class);
-                startActivity(i);
-                Choosemode.this.finish();
-//                Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"fiveMinutes");
-//                Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"oneHour");
-//                Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"donneesRessources");
+              //  Intent i = new Intent(Choosemode.this, Chooseres.class);
+                //startActivity(i);
+                //Choosemode.this.finish();
+                Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"fiveMinutes");
+                Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"oneHour");
+                Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"donneesRessources");
             }
         });
 

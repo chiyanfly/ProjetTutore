@@ -6,7 +6,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import database.Database;
 
 public class RandomFileCreator {
     private Database database;
@@ -21,7 +20,7 @@ public class RandomFileCreator {
         int resourcesNumber = database.tableLength(context, "ressources");
         String[] resourcesNames = new String[resourcesNumber];
         for (int an = 0; an < resourcesNumber; an++) {
-            resourcesNames[an] = database.returnResourceName(an, "ressources");
+            resourcesNames[an] = database.returnResourceName(0);
         }
         BufferedWriter fw;
         int lignes = 0;
@@ -44,4 +43,7 @@ public class RandomFileCreator {
         fw.write("]");
         fw.close();
     }
+
 }
+
+

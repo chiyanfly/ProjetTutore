@@ -57,7 +57,7 @@ public class Database extends SQLiteOpenHelper {
                 "ressourcegroup TEXT" +
                 ");";
 //TODO
-        String addRessource0 = "INSERT INTO ressources (type,ressourcegroup) VALUES ('GPS','Location')";
+        String addRessource0 = "INSERT INTO ressources (type,ressourcegroup) VALUES ('GPS','Location',)";
         String addRessource1 = "INSERT INTO ressources (type,ressourcegroup) VALUES ('MobileData','Communication')";
         String addRessource2 = "INSERT INTO ressources (type,ressourcegroup) VALUES ('Wifi','Communication')";
         String addRessource3 = "INSERT INTO ressources (type,ressourcegroup) VALUES ('Bluetooth','Communication')";
@@ -208,7 +208,6 @@ public class Database extends SQLiteOpenHelper {
 
         Cursor appNames = db.rawQuery("select appName from fiveMinutes", null);
         Cursor ressources = db.rawQuery("select RESSOURCES from fiveMinutes", null);
-        /*Cursor requete = db.rawQuery()sql:"select appName"*/
 
         while (appNames.moveToNext()) {
             String appname = appNames.getString(appNames.getColumnIndex("appName"));
@@ -254,11 +253,15 @@ public class Database extends SQLiteOpenHelper {
             String appname = cursor.getString(cursor.getColumnIndex("appName"));
             String res = cursor.getString(cursor.getColumnIndex("RESSOURCES"));
             String detail = cursor.getString(cursor.getColumnIndex("detail"));
+
             System.out.println(timestamp + "   |  " + appname + "  |  " + res + "  |  " + detail);
+
             // System.out.println(appname+" "+res);
         }
         cursor.close();
+
     }
+
     public int tableLength(Context context,String tablename){
         int length=0;
         String sql = "select COUNT(*) from " + tablename;
@@ -266,20 +269,28 @@ public class Database extends SQLiteOpenHelper {
         while (cursor.moveToNext()) {
             length = cursor.getColumnCount();
         }
+        cursor.close();
         return length;
     }
 
-    public String returnResourceName (int resourceIndex, String tablename) {
+    public String returnResourceName (int resourceIndex) {
         int index = 0;
-        String sql = "select * from " + tablename;
+        String sql = "select * from ressources" ;
         String resourceName= "";
+
+//TODO
+
         Cursor cursor = db.rawQuery(sql, null);
-        while (cursor.moveToNext()&& index<resourceIndex) {
-            if (index==resourceIndex) {
-                resourceName = cursor.getString(cursor.getColumnIndex("appName"));
+        while (cursor.moveToNext()) {
+
+            if (resourceIndex==0) {
+                resourceName = cursor.getString(cursor.getColumnIndex("type"));
             }
             index++;
         }
+        cursor.close();
         return resourceName;
     }
+
+
 }
