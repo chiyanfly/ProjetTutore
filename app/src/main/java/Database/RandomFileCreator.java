@@ -21,7 +21,7 @@ public class RandomFileCreator {
         int resourcesNumber = database.tableLength(context, "ressources");
         String[] resourcesNames = new String[resourcesNumber];
         for (int an = 0; an < resourcesNumber; an++) {
-            resourcesNames[an] = database.returnResourceName(an, "ressources");
+            resourcesNames[an] = database.returnResourceName(an);
         }
         BufferedWriter fw;
         int lignes = 0;
