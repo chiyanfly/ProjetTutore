@@ -41,6 +41,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
 
@@ -55,6 +56,15 @@
 
         </activity>
 
-    </application>
+
+
+
+
+    <activity android:name="activity.TestSpider">
+
+    </activity>
+
+
+</application>
 
 </manifest>

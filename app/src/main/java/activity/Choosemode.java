@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.example.ressources.R;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 
 import database.Database;
 import database.Databasehandler;
+import database.RandomFileCreator;
 import reader.JsonFileReader;
 import reader.StatEntry;
 /**
@@ -74,10 +76,25 @@ public class Choosemode extends Activity {
             @Override
             public void onClick(View v) {
                /* Intent i = new Intent(Choosemode.this, Chooseres.class);
-                startActivity(i);*/
+                startActivity(i);
                Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"fiveMinutes");
                 Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"oneHour");
                 Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"donneesRessources");
+        */
+
+               // test morgan
+     RandomFileCreator randomFileCreator= new RandomFileCreator(getApplicationContext());
+        try {
+            randomFileCreator.fillDetailFile();
+        }catch(IOException io){
+            System.out.println(io.getCause());
+        }
+
+
+
+
+
+
             }
         });
 
