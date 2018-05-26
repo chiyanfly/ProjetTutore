@@ -103,67 +103,6 @@ public class GraphUtils {
         return series;
     }
 
-    public static View getLineChartView2(Context context,
-                                          HashMap<Integer, Integer> infolist,
-                                          String tag) {
-
-        XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-        XYSeries series = new XYSeries(tag);
-        for (Integer interval : infolist.keySet()) {
-            series.add(
-                    Double.valueOf(interval + ""),
-                    Double.valueOf(infolist.get(interval)));
-            }
-        dataset.addSeries(series);
-        XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
-        renderer.setBackgroundColor(Color.parseColor("#efefef"));
-        renderer.setApplyBackgroundColor(true);
-        renderer.setMarginsColor(Color.parseColor("#efefef"));
-        renderer.setPanEnabled(false, false);
-        renderer.setLabelsTextSize(20f);
-        renderer.setMargins(new int[]{20, 55, 15, 5});
-        renderer.setYAxisMin(0);
-        renderer.setXLabels(0);
-        renderer.setShowGrid(true);
-        renderer.setGridColor(Color.parseColor("#eeeeee"));
-        renderer.setPointSize(5f);
-        Align align = renderer.getYAxisAlign(0);
-        renderer.setYLabelsAlign(align);
-        renderer.setYLabelsColor(0, Color.BLACK);
-        renderer.setYLabels(6);
-        renderer.setYAxisMin(0);
-        renderer.setYAxisMax(10);
-        renderer.setXAxisMin(0.1);
-        renderer.setXAxisMax(10.5);
-        renderer.setXLabelsColor(Color.BLACK);
-        renderer.setAxesColor(Color.BLACK);
-        renderer.setYLabelsAlign(Align.RIGHT);
-        for (int i=0;i<=10;i++){
-            renderer.addYTextLabel(i, String.valueOf(i));
-        }
-        int j = 0;
-        for (int i = 0; i < 10; i++) {
-            j++;
-//			String name = map.get("name").getName().toString();
-            renderer.addTextLabel(j, j + "");
-        }
-//        XYMultipleSeriesDataset dataset = getXYMultipleSeriesDataset(tag);
-        XYSeriesRenderer xyRenderer = new XYSeriesRenderer();
-        xyRenderer.setColor(Color.parseColor("#007aa4"));
-        xyRenderer.setLineWidth(2f);
-        xyRenderer.setDisplayChartValues(true);
-        xyRenderer.setChartValuesTextSize(18f);
-        xyRenderer.setDisplayChartValuesDistance(30);
-        xyRenderer.setPointStyle(PointStyle.CIRCLE);
-        xyRenderer.setFillBelowLine(true);
-        xyRenderer.setFillBelowLineColor(Color.parseColor("#66FFB040"));
-        xyRenderer.setFillPoints(true);
-
-        renderer.addSeriesRenderer(xyRenderer);
-
-        return ChartFactory.getCubeLineChartView(context, dataset, renderer, 0.33f);
-    }
-
     public static View getmyLineChartView(Context context,
                                           List<HashMap<Integer, Interval>> infolist,
                                           String tag) {
