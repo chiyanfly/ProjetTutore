@@ -243,6 +243,7 @@ public class Showimageforeachapp extends Activity {
 
         Spinner_time = (Spinner) findViewById(R.id.time_in_mine);
 
+
         Spinner_resource = (Spinner) findViewById(R.id.resource_in_mine);
 /*        CPU = (Button) findViewById(R.id.showimage_CPU);
         GPS = (Button) findViewById(R.id.showimage_GPS);*/
