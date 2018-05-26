@@ -44,7 +44,7 @@ public class Choosemode extends Activity {
 
         databasehandler.initdata("fiveminutes","fiveMinutes");
         databasehandler.initdata("onehour","oneHour");
-        databasehandler.initdata("onehour","donneesRessources");
+//        databasehandler.initdata("onehour","donneesRessources");
 
         databasehandler.getDatabase().affichetable(getApplicationContext(),"fiveMinutes");
         databasehandler.getDatabase().affichetable(getApplicationContext(),"oneHour");
@@ -75,6 +75,7 @@ public class Choosemode extends Activity {
         gotoRessource.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                /* Intent i = new Intent(Choosemode.this, Chooseres.class);
                 startActivity(i);
                Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"fiveMinutes");
@@ -95,12 +96,17 @@ public class Choosemode extends Activity {
 
 
 
-            }
-        });
+                Intent i = new Intent(Choosemode.this, Chooseres.class);
+                startActivity(i);
+                Choosemode.this.finish();
+//                Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"fiveMinutes");
+//                Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"oneHour");
+//                Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"donneesRessources");
+
 
 
     }
-// we need to garatir yhat this fonction excute only once until there are new datas
+// we need to guarantee that this function executes only once until there is new data
    private void adddata() {
 
 
