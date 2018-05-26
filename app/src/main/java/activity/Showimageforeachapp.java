@@ -33,7 +33,7 @@ import tool.DataToimagetool;
 /**
  * Created by hxu on 04/04/18.
  */
-
+// show image more detailed for the choosen app and  the res
 
 public class Showimageforeachapp extends Activity {
 
@@ -45,6 +45,7 @@ public class Showimageforeachapp extends Activity {
     private ArrayList<GraphItem> arrayListitem = new ArrayList<>();
     HashMap<String, HashMap<Integer, Integer>> graphsourcemap;
     private String appname;
+    private String resname;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,7 +58,7 @@ public class Showimageforeachapp extends Activity {
         Intent intent = getIntent();
         graphsourcemap = (HashMap<String, HashMap<Integer, Integer>>) intent.getSerializableExtra("graphinfo");
         appname = intent.getStringExtra("appname");
-
+        resname = intent.getStringExtra("resname");
 /* test
         for (String res : graphsourcemap.keySet()) {
             HashMap<Integer, Integer> map = graphsourcemap.get(res);
@@ -70,9 +71,6 @@ public class Showimageforeachapp extends Activity {
 
 */
         put_imagedata(getmylist());
-
-
-
 
     }
 
@@ -102,8 +100,6 @@ public class Showimageforeachapp extends Activity {
     }
 
     //timedureee
-
-
 
 
     public List<HashMap<Integer, Interval>> getmylist() {
@@ -401,27 +397,40 @@ public class Showimageforeachapp extends Activity {
     }
 
 
-    private void put_imagedata(List<HashMap<Integer, Interval>> datalist){
+    private void put_imagedata(List<HashMap<Integer, Interval>> datalist) {
 
         arrayListitem.clear();
         myrecyclerView.setHasFixedSize(true);
         myrecyclerView.setLayoutManager(new LinearLayoutManager(this));
         ArrayList<GraphicalView> graphlist = new ArrayList<GraphicalView>();
-        graphlist.add((GraphicalView) GraphUtils.getInstance().getmyLineChartView
-                (Showimageforeachapp.this, datalist,
-                        "GPS"));
-        graphlist.add((GraphicalView) GraphUtils.getInstance()
-                .getmyLineChartView(Showimageforeachapp.this,datalist,
-                        "MobileData"));
-        graphlist.add((GraphicalView) GraphUtils.getInstance().getmyLineChartView
-                (Showimageforeachapp.this, datalist,
-                        "SMS"));
-        graphlist.add((GraphicalView) GraphUtils.getInstance()
-                .getmyLineChartView(Showimageforeachapp.this, datalist,
-                        "WIFI"));
-        graphlist.add((GraphicalView) GraphUtils.getInstance()
-                .getmyLineChartView(Showimageforeachapp.this, datalist,
-                        "Contacts"));
+
+        switch (resname) {
+
+            case "Location":
+                graphlist.add((GraphicalView) GraphUtils.getInstance().getmyLineChartView
+                        (Showimageforeachapp.this, datalist,
+                                "GPS"));
+                graphlist.add((GraphicalView) GraphUtils.getInstance()
+                        .getmyLineChartView(Showimageforeachapp.this, datalist,
+                                "Coarse"));
+
+                break;
+            case "Communication":
+                break;
+
+            case "Peripheral":
+                break;
+            case "Personnalinfo":
+                break;
+            case "Storage":
+                break;
+            case "High risk resource":
+                break;
+
+
+        }
+
+
 
 
         // adapter data
@@ -436,7 +445,6 @@ public class Showimageforeachapp extends Activity {
 
 
     }
-
 
 
 }

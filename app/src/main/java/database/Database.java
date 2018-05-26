@@ -1,4 +1,4 @@
-package Database;
+package database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -58,6 +58,9 @@ public class Database extends SQLiteOpenHelper {
                 "ressourcegroup TEXT" +
                 ");";
 //TODO
+
+
+
         String addRessource0 = "INSERT INTO ressources (identifiant,type,ressourcegroup) VALUES ('0','GPS','Location')";
         String addRessource1 = "INSERT INTO ressources (identifiant,type,ressourcegroup) VALUES ('1','Coarse','Location')";
         String addRessource2 = "INSERT INTO ressources (identifiant,type,ressourcegroup) VALUES ('2','MobileData','Communication')";
@@ -76,6 +79,7 @@ public class Database extends SQLiteOpenHelper {
         String addRessource15 = "INSERT INTO ressources (identifianttype,ressourcegroup) VALUES ('15','DrawOverApplications','HighRisksResources')";
         String addRessource16 = "INSERT INTO ressources (identifianttype,ressourcegroup) VALUES ('16','AutomationServices','HighRisksResources')";
         String addRessource17 = "INSERT INTO ressources (identifianttype,ressourcegroup) VALUES ('17','SystemsSettings','HighRisksResources')";
+
         db.execSQL(enumTable);
         db.execSQL(addRessource0);
         db.execSQL(addRessource1);
@@ -217,7 +221,6 @@ public class Database extends SQLiteOpenHelper {
 
         Cursor appNames = db.rawQuery("select appName from fiveMinutes", null);
         Cursor ressources = db.rawQuery("select RESSOURCES from fiveMinutes", null);
-        /*Cursor requete = db.rawQuery()sql:"select appName"*/
 
         while (appNames.moveToNext()) {
             String appname = appNames.getString(appNames.getColumnIndex("appName"));
@@ -263,11 +266,15 @@ public class Database extends SQLiteOpenHelper {
             String appname = cursor.getString(cursor.getColumnIndex("appName"));
             String res = cursor.getString(cursor.getColumnIndex("RESSOURCES"));
             String detail = cursor.getString(cursor.getColumnIndex("detail"));
+
             System.out.println(timestamp + "   |  " + appname + "  |  " + res + "  |  " + detail);
+
             // System.out.println(appname+" "+res);
         }
         cursor.close();
+
     }
+
     public int tableLength(Context context,String tablename){
         int length=0;
         String sql = "select COUNT(*) from " + tablename;
@@ -280,13 +287,24 @@ public class Database extends SQLiteOpenHelper {
     }
 
     public String returnResourceName (int resourceIndex) {
+
+        int index = 0;
+
         String sql = "select type from ressources where index ="+resourceIndex;
+
         String resourceName= "";
+
+//TODO
+
         Cursor cursor = db.rawQuery(sql, null);
         while (cursor.moveToNext()) {
+
+
             resourceName = cursor.getString(cursor.getColumnIndex("type"));
-        }
+       }
         cursor.close();
         return resourceName;
     }
+
+
 }

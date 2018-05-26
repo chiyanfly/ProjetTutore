@@ -61,7 +61,7 @@ public class Chooseapp extends Activity {
 
         database= Database.getInstance(getApplicationContext());
 
-        getappname("fiveMinutes");
+        getappname("oneHour");
         appnamelistview = (ListView) findViewById(R.id.id_applist);
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(Chooseapp.this,
                 android.R.layout.simple_list_item_1, appnamelist);
@@ -75,10 +75,10 @@ public class Chooseapp extends Activity {
                 String appname = appnamelist.get(position);
                 System.out.println(appname);
                 HashMap<String, HashMap<Integer, Integer>> graphsourcemap
-               = DataToimagetool.Table_to_graphsourcemap(getApplicationContext(),appname,"fiveMinutes");
+               = DataToimagetool.Table_to_graphsourcemap(getApplicationContext(),appname,"oneHour");
 
                 Intent intent = new Intent();
-                intent.setClass(Chooseapp.this, Showimageforeachapp.class);
+                intent.setClass(Chooseapp.this, Spideractivity.class);
                 intent.putExtra("graphinfo", (Serializable) graphsourcemap);
                 intent.putExtra("appname",appname);
                 startActivity(intent);

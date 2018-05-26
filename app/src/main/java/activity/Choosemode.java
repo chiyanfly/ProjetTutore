@@ -10,7 +10,6 @@ import android.widget.ImageView;
 
 import com.example.ressources.R;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -18,7 +17,6 @@ import java.util.ArrayList;
 
 import database.Database;
 import database.Databasehandler;
-import database.RandomFileCreator;
 import reader.JsonFileReader;
 import reader.StatEntry;
 /**
@@ -51,12 +49,12 @@ public class Choosemode extends Activity {
 
 
 
-        databasehandler.copydata("fiveMinutes","oneHour");
-        databasehandler.getDatabase().affichetable(getApplicationContext(),"oneHour");
+       // databasehandler.copydata("fiveMinutes","oneHour");
+      //  databasehandler.getDatabase().affichetable(getApplicationContext(),"oneHour");
 
 
        // databasehandler.cleandata("fiveMinutes");
-        databasehandler.getDatabase().affichetable(getApplicationContext(),"fiveMinutes");
+        //databasehandler.getDatabase().affichetable(getApplicationContext(),"fiveMinutes");
 
 
 
@@ -75,36 +73,14 @@ public class Choosemode extends Activity {
         gotoRessource.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-               /* Intent i = new Intent(Choosemode.this, Chooseres.class);
-                startActivity(i);
-               Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"fiveMinutes");
-                Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"oneHour");
-                Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"donneesRessources");
-        */
-
-               // test morgan
-     RandomFileCreator randomFileCreator= new RandomFileCreator(getApplicationContext());
-        try {
-            randomFileCreator.fillDetailFile();
-        }catch(IOException io){
-            System.out.println(io.getCause());
-        }
-
-
-
-
-
-
                 Intent i = new Intent(Choosemode.this, Chooseres.class);
                 startActivity(i);
                 Choosemode.this.finish();
 //                Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"fiveMinutes");
 //                Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"oneHour");
 //                Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"donneesRessources");
-
-
-
+            }
+        });
     }
 // we need to guarantee that this function executes only once until there is new data
    private void adddata() {
@@ -141,7 +117,5 @@ public class Choosemode extends Activity {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-
-
     }
 }

@@ -6,7 +6,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import database.Database;
 
 public class RandomFileCreator {
     private Database database;
@@ -29,7 +28,7 @@ public class RandomFileCreator {
         System.out.println(context.getExternalCacheDir());
         File file = new File(context.getExternalCacheDir().toString() + "//one.json");
         System.out.println(file.getAbsolutePath());
-        database = Database.getInstance(context);
+        database = database.getInstance(context);
         fw = new BufferedWriter(new FileWriter(file));
         fw.write("[");
         fw.write("{\"timestamp\":" + timestamp + ",\"app\":\"myApp" + (Math.round(Math.random() * 100)) % 30 + "\" ,\"ressource\":" + resourcesNames[(int) Math.round(Math.random() * resourcesNames.length)] + ",\"detail\":{}}");
@@ -44,4 +43,7 @@ public class RandomFileCreator {
         fw.write("]");
         fw.close();
     }
+
 }
+
+

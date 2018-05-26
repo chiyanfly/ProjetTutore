@@ -41,7 +41,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
 
@@ -56,14 +55,14 @@
 
         </activity>
 
-    <activity android:name="activity.TestSpider">
-
-    </activity>
 
 
-</application>
+        <activity android:name="activity.Spideractivity">
 
+
+        </activity>
         <activity android:name="activity.ShowImageForEachRes"></activity>
 
     </application>
+
 </manifest>
