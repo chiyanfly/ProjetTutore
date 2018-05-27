@@ -75,7 +75,7 @@ public class Chooseapp extends Activity {
                 String appname = appnamelist.get(position);
                 System.out.println(appname);
                 HashMap<String, HashMap<Integer, Integer>> graphsourcemap
-               = DataToimagetool.Table_to_graphsourcemap(getApplicationContext(),appname,"oneHour");
+               = DataToimagetool.Table_to_graphsourcemap(getApplicationContext(),appname,"fiveMinutes");
 
                 Intent intent = new Intent();
                 intent.setClass(Chooseapp.this, Spideractivity.class);

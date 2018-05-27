@@ -20,7 +20,7 @@ public class Groupresource {
             "MobileData", "Wifi", "Bluetooth", "NFC",
             "Camera","Microphone","Sensors",
             "SMS","Contacts","Phone","Identification"
-            ,"Interval","External",
+            ,"Internal","External",
             "draw over application",
            "Automation services","System settings");
 
@@ -38,6 +38,7 @@ public class Groupresource {
         return  map;
 
     }
+
 
     public static int whichgroup(String resname) {
 

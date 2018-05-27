@@ -6,6 +6,8 @@
         <item>One Week</item>
         <item>One Month</item>
     </string-array>
-
+    <string-array name="childtimes">
+        <item></item>
+    </string-array>
 
 </resources>

@@ -1,21 +1,38 @@
 package supportelement;
 
+import java.util.HashMap;
+
+import tool.Groupresource;
+
 public class Interval {
 
     private int time;
+    /*
     private int CPU;
     private int GPS;
     private int SMS;
     private int WIFI;
     private int Mobiledata;
     private int Contacts;
+*/
+    private HashMap<String, Integer> mapinfo;
 
 
     public Interval(int t) {
-        time=t;
+        time = t;
+
+        mapinfo = new HashMap<>();
+
+        for (String s : Groupresource.Resnamelist) {
+
+            mapinfo.put(s, 0);
+
+        }
+
+
     }
 
-
+/*
     public int getCPU() {
         return CPU;
     }
@@ -75,58 +92,66 @@ public class Interval {
         Contacts = contacts;
     }
 
-    public void setvalue(String name , int value ){
+
+*/
+
+    public int getvalue(String resname) {
+
+        return mapinfo.get(resname);
+
+    }
 
 
-        switch (name){
+    public void setvalue(String name, int value) {
 
-            case  "GPS":
-                GPS=value;
+/*
+        switch (name) {
+
+            case "GPS":
+                GPS = value;
                 break;
 
-            case  "CPU":
-                CPU=value;
+            case "CPU":
+                CPU = value;
                 break;
 
-            case  "MobileData":
-                Mobiledata=value;
+            case "MobileData":
+                Mobiledata = value;
                 break;
 
-            case  "Wifi":
-                WIFI=value;
+            case "Wifi":
+                WIFI = value;
                 break;
-            case  "SMS":
-                SMS=value;
+            case "SMS":
+                SMS = value;
                 break;
-            case  "Contacts":
-                Contacts=value;
+            case "Contacts":
+                Contacts = value;
                 break;
             default:
                 break;
 
 
+        }*/
 
-
-        }
-
-
+        mapinfo.put(name, value);
 
     }
 
-
+/*
     @Override
     public String toString() {
-         //super.toString();
+        //super.toString();
 
 
-        return  " time "+getTime()+" contacts "+getContacts()+
-                " CPU "+getCPU()+
-                " GPS "+getGPS()+
-                " Mobiledata " +getMobiledata()+
-                " SMS "+getSMS()+
-                " WIFI "+getWIFI();
-
+        return " time " + getTime() + " contacts " + getContacts() +
+                " CPU " + getCPU() +
+                " GPS " + getGPS() +
+                " Mobiledata " + getMobiledata() +
+                " SMS " + getSMS() +
+                " WIFI " + getWIFI();
 
 
     }
+    */
 }
