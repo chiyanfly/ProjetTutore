@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -19,9 +18,12 @@ import com.example.ressources.R;
 import com.example.ressources.StudentGradeMessage;
 
 import org.achartengine.GraphicalView;
+import org.apache.commons.collections.map.MultiValueMap;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +31,7 @@ import supportelement.GraphItem;
 import supportelement.Interval;
 import supportelement.Recyleradapter;
 import tool.DataToimagetool;
+import tool.Groupresource;
 
 /**
  * Created by hxu on 04/04/18.
@@ -44,7 +47,7 @@ public class Showimageforeachapp extends Activity {
     private ArrayList<GraphItem> arrayListitem = new ArrayList<>();
     HashMap<String, HashMap<Integer, Integer>> graphsourcemap;
     private String appname;
-    private String resname;
+    private String groupname;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,7 +60,7 @@ public class Showimageforeachapp extends Activity {
         Intent intent = getIntent();
         graphsourcemap = (HashMap<String, HashMap<Integer, Integer>>) intent.getSerializableExtra("graphinfo");
         appname = intent.getStringExtra("appname");
-        resname = intent.getStringExtra("resname");
+        groupname = intent.getStringExtra("resname");
 /* test
         for (String res : graphsourcemap.keySet()) {
             HashMap<Integer, Integer> map = graphsourcemap.get(res);
@@ -242,8 +245,6 @@ public class Showimageforeachapp extends Activity {
 /*        CPU = (Button) findViewById(R.id.showimage_CPU);
         GPS = (Button) findViewById(R.id.showimage_GPS);*/
         myrecyclerView = (RecyclerView) findViewById(R.id.showimage_recycler);
-
-
     }
 
 
@@ -378,9 +379,30 @@ public class Showimageforeachapp extends Activity {
         myrecyclerView.setLayoutManager(new LinearLayoutManager(this));
         ArrayList<GraphicalView> graphlist = new ArrayList<GraphicalView>();
 
+
+    MultiValueMap mapinfo= Groupresource.getrelationmultivaluemap();
+
+        Collection resnamelist = mapinfo.getCollection(groupname);
+        Iterator i = resnamelist.iterator();
+
+        while (i.hasNext()){
+
+            String n= (String)i.next();
+            System.out.println(n);
+            arrayListitem.add(new GraphItem((GraphicalView) GraphUtils.getInstance().getmyLineChartView
+                    (Showimageforeachapp.this, datalist,
+                            n), n));
+        }
+
+/*
         switch (resname) {
 
             case "Location":
+
+
+                mapinfo.get()
+
+
                 graphlist.add((GraphicalView) GraphUtils.getInstance().getmyLineChartView
                         (Showimageforeachapp.this, datalist,
                                 "GPS"));
@@ -404,15 +426,15 @@ public class Showimageforeachapp extends Activity {
 
         }
 
-
+*/
 
 
         // adapter data
-        arrayListitem.add(new GraphItem(graphlist.get(0), "GPS"));
+        /*arrayListitem.add(new GraphItem(graphlist.get(0), "GPS"));
         arrayListitem.add(new GraphItem(graphlist.get(1), "MobileData"));
         arrayListitem.add(new GraphItem(graphlist.get(2), "SMS"));
         arrayListitem.add(new GraphItem(graphlist.get(3), "WIFI"));
-        arrayListitem.add(new GraphItem(graphlist.get(4), "Contacts"));
+        arrayListitem.add(new GraphItem(graphlist.get(4), "Contacts"));*/
         Recyleradapter recyleradapter = new Recyleradapter(arrayListitem);
         System.out.println(recyleradapter.getItemCount());
         myrecyclerView.setAdapter(recyleradapter);
