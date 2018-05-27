@@ -73,12 +73,12 @@ public class Database extends SQLiteOpenHelper {
         String addRessource9 = "INSERT INTO ressources (identifiant,type,ressourcegroup) VALUES ('9','Sms','PersonnalInformation')";
         String addRessource10 = "INSERT INTO ressources (identifiant,type,ressourcegroup) VALUES ('10','Contacts','PersonnalInformation')";
         String addRessource11 = "INSERT INTO ressources (identifiant,type,ressourcegroup) VALUES ('11','Phone','PersonnalInformation')";
-        String addRessource12 = "INSERT INTO ressources (identifianttype,ressourcegroup) VALUES ('12','Identification','PersonnalInformation')";
-        String addRessource13 = "INSERT INTO ressources (identifianttype,ressourcegroup) VALUES ('13','InternalStorage','Storage')";
-        String addRessource14 = "INSERT INTO ressources (identifianttype,ressourcegroup) VALUES ('14','ExternalStorage','Storage')";
-        String addRessource15 = "INSERT INTO ressources (identifianttype,ressourcegroup) VALUES ('15','DrawOverApplications','HighRisksResources')";
-        String addRessource16 = "INSERT INTO ressources (identifianttype,ressourcegroup) VALUES ('16','AutomationServices','HighRisksResources')";
-        String addRessource17 = "INSERT INTO ressources (identifianttype,ressourcegroup) VALUES ('17','SystemsSettings','HighRisksResources')";
+        String addRessource12 = "INSERT INTO ressources (identifiant,type,ressourcegroup) VALUES ('12','Identification','PersonnalInformation')";
+        String addRessource13 = "INSERT INTO ressources (identifiant,type,ressourcegroup) VALUES ('13','InternalStorage','Storage')";
+        String addRessource14 = "INSERT INTO ressources (identifiant,type,ressourcegroup) VALUES ('14','ExternalStorage','Storage')";
+        String addRessource15 = "INSERT INTO ressources (identifiant,type,ressourcegroup) VALUES ('15','DrawOverApplications','HighRisksResources')";
+        String addRessource16 = "INSERT INTO ressources (identifiant,type,ressourcegroup) VALUES ('16','AutomationServices','HighRisksResources')";
+        String addRessource17 = "INSERT INTO ressources (identifiant,type,ressourcegroup) VALUES ('17','SystemsSettings','HighRisksResources')";
 
         db.execSQL(enumTable);
         db.execSQL(addRessource0);
