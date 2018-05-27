@@ -20,9 +20,11 @@ import org.achartengine.chart.BarChart;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import supportelement.GraphItem;
 import supportelement.Interval;
@@ -115,11 +117,22 @@ public class ShowImageForEachRes extends Activity {
         myrecyclerView.setHasFixedSize(true);
         myrecyclerView.setLayoutManager(new LinearLayoutManager(this));
         ArrayList<GraphicalView> graphlist = new ArrayList<GraphicalView>();
-        for (String res : graphsourcemap.keySet()) {
+        /*for (String app : graphsourcemap.keySet()) {
             graphlist.add((GraphicalView) GraphUtils.getInstance().getLineChartView2
-                    (ShowImageForEachRes.this, graphsourcemap.get(res),res));
-            arrayListitem.add(new GraphItem((graphlist.get(graphlist.size()-1)), res));
+                    (ShowImageForEachRes.this, graphsourcemap.get(app), app));
+            arrayListitem.add(new GraphItem((graphlist.get(graphlist.size()-1)), app));
+        }*/
+        ArrayList<Date> dateList = new ArrayList<>();
+        ArrayList<Integer> dataList = new ArrayList<>();
+        Random random = new Random();
+        Long timestamp = System.currentTimeMillis();
+        for (int i = 0; i < 12; i++) {
+            dateList.add(new Date(timestamp + i * 300000));
+            dataList.add(random.nextInt(21));
         }
+        graphlist.add((GraphicalView) GraphUtils.createGraph
+                ( ShowImageForEachRes.this, dateList, dataList, "app", "Hour"));
+        arrayListitem.add(new GraphItem((graphlist.get(graphlist.size()-1)), "app"));
         Recyleradapter recyleradapter = new Recyleradapter(arrayListitem);
         System.out.println(recyleradapter.getItemCount());
         myrecyclerView.setAdapter(recyleradapter);

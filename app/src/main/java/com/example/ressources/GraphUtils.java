@@ -9,6 +9,7 @@ import org.achartengine.ChartFactory;
 import org.achartengine.chart.BarChart.Type;
 import org.achartengine.chart.PointStyle;
 import org.achartengine.model.CategorySeries;
+import org.achartengine.model.TimeSeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.DefaultRenderer;
@@ -18,6 +19,7 @@ import org.achartengine.renderer.XYMultipleSeriesRenderer.Orientation;
 import org.achartengine.renderer.XYSeriesRenderer;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +44,48 @@ public class GraphUtils {
             graph = new GraphUtils();
         }
         return graph;
+    }
+
+    public static View createGraph(Context context, ArrayList<Date> dateList, ArrayList<Integer> dataList, String tag, String scale) {
+        String format = "";
+        if (scale.equals("Hour") || scale.equals("Day")) {
+            format = "HH:mm";
+        } else if (scale.equals("Month")) {
+            format = "dd/MM";
+        } else {
+            format = "MM";
+        }
+        // Write data into TimeSeries
+        TimeSeries timeSeries = new TimeSeries(tag);
+        for (int index = 0; index < dataList.size(); index++) {
+            timeSeries.add(dateList.get(index), dataList.get(index));
+        }
+        // Add TimeSeries into expected XYMultipleSeriesDataset
+        XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
+        dataset.addSeries(timeSeries);
+        // Create XYSeriesRenderer to customize timeSeries
+        XYSeriesRenderer timeSeriesRenderer = new XYSeriesRenderer();
+        timeSeriesRenderer.setColor(Color.RED);
+        timeSeriesRenderer.setPointStyle(PointStyle.CIRCLE);
+        timeSeriesRenderer.setFillPoints(true);
+        timeSeriesRenderer.setLineWidth(2);
+        timeSeriesRenderer.setDisplayChartValues(true);
+        // Create XYMultipleSeriesRenderer
+        XYMultipleSeriesRenderer multiRenderer = new XYMultipleSeriesRenderer();
+        multiRenderer.setChartTitle("Accesses over "+scale);
+        multiRenderer.setXTitle("Time");
+        multiRenderer.setYTitle("Number of Accesses");
+        multiRenderer.setZoomButtonsVisible(false);
+        multiRenderer.setBackgroundColor(Color.WHITE);
+        multiRenderer.setApplyBackgroundColor(true);
+        multiRenderer.setMarginsColor(Color.parseColor("#efefef"));
+        multiRenderer.setYLabelsColor(0, Color.BLACK);
+        multiRenderer.setXLabelsColor(Color.BLACK);
+        multiRenderer.setAxesColor(Color.BLACK);
+        multiRenderer.setPanEnabled(false, false);
+        // Add XYSeriesRendere to XYMultipleSeriesRenderer
+        multiRenderer.addSeriesRenderer(timeSeriesRenderer);
+        return ChartFactory.getTimeChartView(context, dataset, multiRenderer, format);
     }
 
     /**
@@ -109,12 +153,15 @@ public class GraphUtils {
 
         XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
         XYSeries series = new XYSeries(tag);
-
+        int max = 0;
         for (Integer interval : infolist.keySet()) {
             series.add(
                     Double.valueOf(interval + ""),
                     Double.valueOf(infolist.get(interval)));
+            if (infolist.get(interval) > max) {
+                max = infolist.get(interval);
             }
+        }
         dataset.addSeries(series);
         XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
         renderer.setBackgroundColor(Color.parseColor("#efefef"));
@@ -122,7 +169,7 @@ public class GraphUtils {
         renderer.setMarginsColor(Color.parseColor("#efefef"));
         renderer.setPanEnabled(false, false);
         renderer.setLabelsTextSize(20f);
-        renderer.setMargins(new int[]{20, 55, 15, 5});
+        renderer.setMargins(new int[]{30, 30, 30, 30});
         renderer.setYAxisMin(0);
         renderer.setXLabels(0);
         renderer.setShowGrid(true);
@@ -131,11 +178,11 @@ public class GraphUtils {
         Align align = renderer.getYAxisAlign(0);
         renderer.setYLabelsAlign(align);
         renderer.setYLabelsColor(0, Color.BLACK);
-        renderer.setYLabels(6);
+        renderer.setYLabels(max / 4);
         renderer.setYAxisMin(0);
-        renderer.setYAxisMax(10);
-        renderer.setXAxisMin(0.1);
-        renderer.setXAxisMax(10.5);
+        renderer.setYAxisMax(max + 2);
+        renderer.setXAxisMin(0);
+        renderer.setXAxisMax(infolist.size()-1);
         renderer.setXLabelsColor(Color.BLACK);
         renderer.setAxesColor(Color.BLACK);
         renderer.setYLabelsAlign(Align.RIGHT);
