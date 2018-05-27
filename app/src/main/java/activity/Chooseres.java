@@ -44,7 +44,6 @@ public class Chooseres extends Activity {
         resnamelistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //TODO
                 String resname = resnamelist.get(position);
                 System.out.println(resname);
                 HashMap<String, HashMap<Integer, Integer>> graphsourcemap

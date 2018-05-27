@@ -98,12 +98,12 @@ public class Choosemode extends Activity {
         gotoRessource.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             //   Intent i = new Intent(Choosemode.this, Chooseres.class);
-                //startActivity(i);
+                Intent i = new Intent(Choosemode.this, Chooseres.class);
+                startActivity(i);
                 //Choosemode.this.finish();
-                Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"fiveMinutes");
+                /*Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"fiveMinutes");
                 Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"oneHour");
-                Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"donneesRessources");
+                Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"donneesRessources");*/
             }
         });
     }
