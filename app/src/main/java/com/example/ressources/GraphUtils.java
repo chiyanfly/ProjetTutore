@@ -25,6 +25,7 @@ import java.util.Map;
 import supportelement.Interval;
 
 
+
 //   GraphUtils.getInstance().getLineChartView
 //   (MainActivity.this, studentGradeList , "B");
 
@@ -297,11 +298,26 @@ public class GraphUtils {
 
         XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 
+        XYSeries series = new XYSeries(tag);
+        //System.out.println("lalallall");
+        for (int i = 1; i < myinfolist.size() + 1; i++) {
+            //  System.out.println("cqklcjl");
+            series.add(
+                    Double.valueOf(i + ""),
+                    Double.valueOf(myinfolist.get(i - 1).get(1).getvalue(tag)));
+        }
+
+        dataset.addSeries(series);
+
+
+
+
+        /*
         if ("GPS".equals(tag)) {
             XYSeries series = new XYSeries("GPS");
-            System.out.println("lalallall");
+            //System.out.println("lalallall");
             for (int i = 1; i < myinfolist.size() + 1; i++) {
-                System.out.println("cqklcjl");
+              //  System.out.println("cqklcjl");
                 series.add(
                         Double.valueOf(i + ""),
                         Double.valueOf(myinfolist.get(i - 1).get(1).getGPS()));
@@ -316,7 +332,7 @@ public class GraphUtils {
                         Double.valueOf(myinfolist.get(i - 1).get(1).getMobiledata()));
             }
             dataset.addSeries(series);
-        } else if ("WIFI".equals(tag)) {
+        } else if ("Wifi".equals(tag)) {
             XYSeries series = new XYSeries("WIFI");
             for (int i = 1; i < myinfolist.size() + 1; i++) {
                 series.add(
@@ -339,6 +355,22 @@ public class GraphUtils {
                         Double.valueOf(i + ""),
                         Double.valueOf(myinfolist.get(i - 1).get(1).getContacts()));
             }
+            dataset.addSeries(series);
+        }else if ("Bluetooth".equals(tag)) {
+            XYSeries series = new XYSeries("Bluetooth");
+            for (int i = 1; i < myinfolist.size() + 1; i++) {
+                series.add(
+                        Double.valueOf(i + ""),
+                        Double.valueOf(myinfolist.get(i - 1).get(1).getContacts()));
+            }//TODO
+            dataset.addSeries(series);
+        }else if ("NFC".equals(tag)) {
+            XYSeries series = new XYSeries("NFC");
+            for (int i = 1; i < myinfolist.size() + 1; i++) {
+                series.add(
+                        Double.valueOf(i + ""),
+                        Double.valueOf(myinfolist.get(i - 1).get(1).getContacts()));
+            }//TODO
             dataset.addSeries(series);
         }
         /*
@@ -380,7 +412,6 @@ public class GraphUtils {
 			}
 			dataset.addSeries(series);
 		}*/
-
 
         return dataset;
     }
