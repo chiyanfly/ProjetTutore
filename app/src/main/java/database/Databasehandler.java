@@ -30,7 +30,7 @@ public class Databasehandler {
     Context context;
     public Databasehandler(Context c) {
         context = c;
-        database = Database.getInstance(context);
+        database = database.getInstance(context);
         database.createsqlitedatabase(context);
     }
 
