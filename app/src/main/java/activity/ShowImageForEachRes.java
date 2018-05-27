@@ -18,6 +18,9 @@ import com.example.ressources.R;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.BarChart;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -122,17 +125,50 @@ public class ShowImageForEachRes extends Activity {
                     (ShowImageForEachRes.this, graphsourcemap.get(app), app));
             arrayListitem.add(new GraphItem((graphlist.get(graphlist.size()-1)), app));
         }*/
+        // Testing Hour
         ArrayList<Date> dateList = new ArrayList<>();
         ArrayList<Integer> dataList = new ArrayList<>();
         Random random = new Random();
-        Long timestamp = System.currentTimeMillis();
+        long timestamp = 0;
+//        Long timestamp = System.currentTimeMillis();
         for (int i = 0; i < 12; i++) {
-            dateList.add(new Date(timestamp + i * 300000));
+            dateList.add(new Date(timestamp + (((long) i) * 300000)));
             dataList.add(random.nextInt(21));
         }
         graphlist.add((GraphicalView) GraphUtils.createGraph
                 ( ShowImageForEachRes.this, dateList, dataList, "app", "Hour"));
         arrayListitem.add(new GraphItem((graphlist.get(graphlist.size()-1)), "app"));
+        // Testing Day
+        dataList.clear();
+        dateList.clear();
+        for (int i = 0; i < 24; i++) {
+            dateList.add(new Date(timestamp + ((long) i) * 3600000));
+            dataList.add(random.nextInt(21));
+        }
+        graphlist.add((GraphicalView) GraphUtils.createGraph
+                ( ShowImageForEachRes.this, dateList, dataList, "app", "Day"));
+        arrayListitem.add(new GraphItem((graphlist.get(graphlist.size()-1)), "app"));
+        // Testing Month
+        dataList.clear();
+        dateList.clear();
+        for (int i = 0; i < 31; i++) {
+            dateList.add(new Date(timestamp + (((long) i) * 3600000 * 24)));
+            dataList.add(random.nextInt(21));
+        }
+        graphlist.add((GraphicalView) GraphUtils.createGraph
+                ( ShowImageForEachRes.this, dateList, dataList, "app", "Month"));
+        arrayListitem.add(new GraphItem((graphlist.get(graphlist.size()-1)), "app"));
+        // Testing Year
+        dataList.clear();
+        dateList.clear();
+        for (int i = 0; i < 12; i++) {
+            dateList.add(new Date(timestamp + (((long) i) * 3600000 * 24 * 31)));
+            dataList.add(random.nextInt(21));
+        }
+        graphlist.add((GraphicalView) GraphUtils.createGraph
+                ( ShowImageForEachRes.this, dateList, dataList, "app", "Year"));
+        arrayListitem.add(new GraphItem((graphlist.get(graphlist.size()-1)), "app"));
+        // Applying Tests
         Recyleradapter recyleradapter = new Recyleradapter(arrayListitem);
         System.out.println(recyleradapter.getItemCount());
         myrecyclerView.setAdapter(recyleradapter);

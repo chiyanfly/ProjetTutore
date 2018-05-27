@@ -70,19 +70,28 @@ public class GraphUtils {
         timeSeriesRenderer.setPointStyle(PointStyle.CIRCLE);
         timeSeriesRenderer.setFillPoints(true);
         timeSeriesRenderer.setLineWidth(2);
-        timeSeriesRenderer.setDisplayChartValues(true);
+        timeSeriesRenderer.setDisplayChartValues(false);
         // Create XYMultipleSeriesRenderer
         XYMultipleSeriesRenderer multiRenderer = new XYMultipleSeriesRenderer();
         multiRenderer.setChartTitle("Accesses over "+scale);
         multiRenderer.setXTitle("Time");
         multiRenderer.setYTitle("Number of Accesses");
-        multiRenderer.setZoomButtonsVisible(false);
         multiRenderer.setBackgroundColor(Color.WHITE);
-        multiRenderer.setApplyBackgroundColor(true);
-        multiRenderer.setMarginsColor(Color.parseColor("#efefef"));
+        multiRenderer.setMarginsColor(Color.LTGRAY);
+        multiRenderer.setAxesColor(Color.BLACK);
+        multiRenderer.setLabelsColor(Color.BLACK);
         multiRenderer.setYLabelsColor(0, Color.BLACK);
         multiRenderer.setXLabelsColor(Color.BLACK);
-        multiRenderer.setAxesColor(Color.BLACK);
+        multiRenderer.setXLabels(dateList.size());
+//        multiRenderer.setXLabelsAngle((float) -60.0);
+        multiRenderer.setLabelsTextSize(15f);
+        multiRenderer.setAxisTitleTextSize(15f);
+        multiRenderer.setXLabelsAlign(Align.CENTER);
+        multiRenderer.setYLabelsAlign(Align.RIGHT);
+        multiRenderer.setZoomButtonsVisible(false);
+        multiRenderer.setZoomEnabled(false, false);
+        multiRenderer.setShowGrid(true);
+        multiRenderer.setApplyBackgroundColor(true);
         multiRenderer.setPanEnabled(false, false);
         // Add XYSeriesRendere to XYMultipleSeriesRenderer
         multiRenderer.addSeriesRenderer(timeSeriesRenderer);
