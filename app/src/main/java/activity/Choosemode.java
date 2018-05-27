@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.JsonReader;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.ressources.R;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 
 import database.Database;
 import database.Databasehandler;
+import database.RandomFileCreator;
 import reader.JsonFileReader;
 import reader.StatEntry;
 /**
@@ -25,6 +28,8 @@ import reader.StatEntry;
 
 public class Choosemode extends Activity {
 
+    private Database database;
+    private RandomFileCreator randomFileCreator;
 
     // public static  Database database ;
 
@@ -34,7 +39,27 @@ public class Choosemode extends Activity {
         setContentView(R.layout.sort);
         CardView gotoApp = (CardView) findViewById(R.id.gotoApp);
         CardView gotoRessource = (CardView) findViewById(R.id.gotoRessource);
+        TextView random = (TextView)findViewById(R.id.random);
         // create database  firstly
+        database = Database.getInstance(getApplicationContext());
+        randomFileCreator = new RandomFileCreator(getApplicationContext());
+        random.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                database.deletealldata(getApplicationContext(),"donneesRessources");
+                try{
+                    randomFileCreator.fillDetailFile();
+                    database.addDataFromFile(getApplicationContext(),getApplication().getExternalCacheDir().toString() + "/one.json","donneesRessources");
+                }catch (IOException e){
+
+                }
+                //String sql = "select * from " + "donneesRessources";
+                //database.affichetable(getApplicationContext(),"donneesRessources");
+                /*database.tableTransfer("donneesRessources");*/
+            }
+        });
+
+
 
         //database= new Database(getApplicationContext());
 

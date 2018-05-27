@@ -114,48 +114,58 @@ public class Database extends SQLiteOpenHelper {
                 + "appName VARCHAR(20),"
                 + "RESSOURCES REFERENCES ressources(type)," +
                 "detail TEXT);";
+
          /* ici , il veut des entiers mais on a besoin des string */
         db.execSQL(createTable);
 
-        String fiveMinutes = "CREATE TABLE fiveMinutes("
-                + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + "timeStamp TIMESTAMP,"
-                + "appName VARCHAR(20),"
-                + "RESSOURCES REFERENCES ressources(type)," +
-                "detail INTEFER);";
-        db.execSQL(fiveMinutes);
-
-        String onehour = "CREATE TABLE oneHour("
+        String actualDay = "CREATE TABLE actualDay("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "timeStamp TIMESTAMP,"
                 + "appName VARCHAR(20),"
                 + "RESSOURCES REFERENCES ressources(type)," +
                 "detail TEXT);";
-        db.execSQL(onehour);
+        db.execSQL(actualDay);
 
-        String oneday = "CREATE TABLE oneDay("
+        String precedentDay = "CREATE TABLE precedentDay("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "timeStamp TIMESTAMP,"
                 + "appName VARCHAR(20),"
                 + "RESSOURCES REFERENCES ressources(type)," +
                 "detail TEXT);";
-        db.execSQL(oneday);
+        db.execSQL(precedentDay);
 
-        String oneweek = "CREATE TABLE oneWeek("
+        String actualMonth = "CREATE TABLE actualMonth("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "timeStamp TIMESTAMP,"
                 + "appName VARCHAR(20),"
                 + "RESSOURCES REFERENCES ressources(type)," +
-                "detail TEXT);";
-        db.execSQL(oneweek);
+                "moyenne INTEGER);";
+        db.execSQL(actualMonth);
 
-        String oneyear = "CREATE TABLE oneYear("
+        String precedentMonth = "CREATE TABLE precedentMonth("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "timeStamp TIMESTAMP,"
                 + "appName VARCHAR(20),"
                 + "RESSOURCES REFERENCES ressources(type)," +
-                "detail TEXT);";
-        db.execSQL(oneyear);
+                "moyenne INTEGER);";
+        db.execSQL(precedentMonth);
+
+        String actualYear = "CREATE TABLE actualYear("
+                + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + "timeStamp TIMESTAMP,"
+                + "appName VARCHAR(20),"
+                + "RESSOURCES REFERENCES ressources(type)," +
+                "moyenne INTEGER);";
+        db.execSQL(actualYear);
+
+        String precedentYear = "CREATE TABLE precedentYear("
+                + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + "timeStamp TIMESTAMP,"
+                + "appName VARCHAR(20),"
+                + "RESSOURCES REFERENCES ressources(type)," +
+                "moyenne INTEGER);";
+        db.execSQL(precedentYear);
+
     }
 
     @Override
@@ -293,7 +303,6 @@ public class Database extends SQLiteOpenHelper {
 
         String resourceName= "";
 
-//TODO
 
         Cursor cursor = db.rawQuery(sql, null);
         while (cursor.moveToNext()) {
@@ -309,16 +318,8 @@ public class Database extends SQLiteOpenHelper {
 
             System.out.println("pathname is "+pathName);
             File file = new File(pathName);
-            if(file.exists()){
-               System.out.println("File exist");
-               System.out.println(file.length());
-            }
-
             InputStream in = new FileInputStream(file);
-
-
             JsonReader j = new JsonReader(new InputStreamReader(in,"UTF-8"));
-
             JsonFileReader reader = new JsonFileReader();
             ArrayList<StatEntry> statEntries = reader.readFile(j);
 
@@ -329,7 +330,7 @@ public class Database extends SQLiteOpenHelper {
                 String s ="";
                 for (int i = 0; i < statEntries.size(); i++) {
                     // s+=statEntries.get(i).toString()+"\n";
-                    System.out.println(statEntries.get(i).toString());
+                    //System.out.println(statEntries.get(i).toString());
 
                     this.addData(context,statEntries.get(i),table);
             }
@@ -339,10 +340,18 @@ public class Database extends SQLiteOpenHelper {
         }catch (IOException e){
 
         }
-
-
-
-
     }
+
+    /*public void tableTransfer(String table1){
+
+        String sql = "SELECT appName,RESSOURCES from "+table1+"";
+        String affichage = "";
+        Cursor cursor = db.rawQuery(sql, null);
+        while (cursor.moveToNext()) {
+             affichage = cursor.getString(cursor.getColumnIndex("appName"))+" "+ cursor.getString(cursor.getColumnIndex("RESSOURCES"));
+             System.out.println(affichage);
+        }
+        cursor.close();
+    }*/
 
 }

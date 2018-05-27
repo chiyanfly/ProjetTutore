@@ -51,13 +51,13 @@ public class JsonFileReader  {
     private ArrayList<StatEntry> readEntryArray(JsonReader reader) throws IOException, InvalidEntryException {
         ArrayList<StatEntry> statEntries = new ArrayList<StatEntry>();
         reader.beginArray();
-        System.out.println("Here to start");
+       // System.out.println("Here to start");
         while (reader.hasNext()) {
             statEntries.add(readEntry(reader));
-            System.out.println("I have next");
+           // System.out.println("I have next");
         }
         reader.endArray();
-        System.out.println("Here to end");
+       // System.out.println("Here to end");
         return statEntries;
     }
 
@@ -74,17 +74,17 @@ public class JsonFileReader  {
             if (name.equals("timestamp")) {
               // System.out.println("lalallalal");
                 timestamp = new Timestamp(reader.nextLong());
-                System.out.println(timestamp.toString());
+                //System.out.println(timestamp.toString());
             } else if (name.equals("app")) {
                 app_name = reader.nextString();
-                System.out.println(app_name);
+               // System.out.println(app_name);
             } else if (name.equals("resource")) {
                 resource = reader.nextString();
-               System.out.println(resource);
+              // System.out.println(resource);
             } else if (name.equals("detail")) {
                 detail=readDetail(reader);
 
-                System.out.println("detail");
+               // System.out.println("detail");
             } else {
                 throw new InvalidEntryException();
             }

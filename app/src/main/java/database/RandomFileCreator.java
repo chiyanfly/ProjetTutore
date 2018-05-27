@@ -35,21 +35,21 @@ public class RandomFileCreator {
         BufferedWriter fw;
         int lignes = 0;
         long timestamp = 1522857960;
-        System.out.println(context.getExternalCacheDir());
+        //System.out.println(context.getExternalCacheDir());
         File file = new File(context.getExternalCacheDir().toString() + "//one.json");
-        System.out.println(file.getAbsolutePath());
+        //System.out.println(file.getAbsolutePath());
         fw = new BufferedWriter(new FileWriter(file));
         fw.write("[");
         fw.write("{\"timestamp\":" + timestamp + ",\"app\":\"myApp" + (Math.round(Math.random() * 100)) % 30 + "\" ,\"resource\":\"" + resourcesNames[(int) Math.round(Math.random() * (resourcesNames.length-1))] + "\",\"detail\":{}}");
 
         fw.newLine();
-        while (lignes < 1) {
+        while (lignes < 100) {
             String test1 = ",{\"timestamp\":" + timestamp + ",\"app\":\"myApp" + (Math.round(Math.random() * 100)) % 30 + "\" ,\"resource\":\"" + resourcesNames[(int) Math.round(Math.random() * (resourcesNames.length-1))] + "\",\"detail\":{}}";
-            System.out.println(test1);
+            //System.out.println(test1);
             fw.write(test1);
             fw.newLine();
             lignes++;
-            timestamp = timestamp + (Math.round(Math.random() * 100)) % 50;
+            timestamp = timestamp + Math.round(Math.random() * 100000);
 
 
         }
