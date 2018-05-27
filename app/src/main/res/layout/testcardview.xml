@@ -17,8 +17,7 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             app:cardCornerRadius="6dp"
-            app:cardElevation="8dp"
-            android:id="@+id/gotoApp">
+            app:cardElevation="8dp">
 
             <LinearLayout
                 android:id="@+id/news_header"
@@ -58,8 +57,7 @@
             android:clickable="true"
             app:cardCornerRadius="6dp"
             app:cardElevation="8dp"
-            android:layout_marginTop="10dp"
-            android:id="@+id/gotoRessource">
+            android:layout_marginTop="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
