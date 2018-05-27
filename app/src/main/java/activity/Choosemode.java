@@ -66,7 +66,7 @@ public class Choosemode extends Activity {
             public void onClick(View v) {
                 Intent i = new Intent(Choosemode.this, Chooseapp.class);
                 startActivity(i);
-                Choosemode.this.finish();
+               // Choosemode.this.finish();
             }
         });
         //Click this image, we will goto the page ressource
@@ -75,7 +75,7 @@ public class Choosemode extends Activity {
             public void onClick(View v) {
                 Intent i = new Intent(Choosemode.this, Chooseres.class);
                 startActivity(i);
-                Choosemode.this.finish();
+                //Choosemode.this.finish();
 //                Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"fiveMinutes");
 //                Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"oneHour");
 //                Database.getInstance(getApplicationContext()).deletealldata(getApplicationContext(),"donneesRessources");
