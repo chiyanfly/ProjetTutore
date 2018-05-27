@@ -23,6 +23,7 @@ public class JsonFileReader  {
     public ArrayList<StatEntry> readFile( JsonReader j) {
       //  File file = new File(path);
         JsonReader reader = j;
+
         try {
 
             return readEntryArray(reader);
@@ -32,6 +33,9 @@ public class JsonFileReader  {
             e.printStackTrace();
         } catch (InvalidEntryException e) {
             e.display();
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+            System.out.println(e.getStackTrace());
         } finally {
             try {
                 if (reader != null) {
@@ -47,10 +51,13 @@ public class JsonFileReader  {
     private ArrayList<StatEntry> readEntryArray(JsonReader reader) throws IOException, InvalidEntryException {
         ArrayList<StatEntry> statEntries = new ArrayList<StatEntry>();
         reader.beginArray();
+        System.out.println("Here to start");
         while (reader.hasNext()) {
             statEntries.add(readEntry(reader));
+            System.out.println("I have next");
         }
         reader.endArray();
+        System.out.println("Here to end");
         return statEntries;
     }
 
@@ -65,20 +72,19 @@ public class JsonFileReader  {
             String name = reader.nextName();
            // System.out.println("name");
             if (name.equals("timestamp")) {
-               // System.out.println("lalallalal");
-
+              // System.out.println("lalallalal");
                 timestamp = new Timestamp(reader.nextLong());
-              //  System.out.println(timestamp.toString());
+                System.out.println(timestamp.toString());
             } else if (name.equals("app")) {
                 app_name = reader.nextString();
-              //  System.out.println(app_name);
+                System.out.println(app_name);
             } else if (name.equals("resource")) {
                 resource = reader.nextString();
-              //  System.out.println(resource);
+               System.out.println(resource);
             } else if (name.equals("detail")) {
                 detail=readDetail(reader);
 
-                //System.out.println("detail");
+                System.out.println("detail");
             } else {
                 throw new InvalidEntryException();
             }

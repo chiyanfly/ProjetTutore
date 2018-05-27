@@ -5,9 +5,17 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.MediaStore;
+import android.util.JsonReader;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import reader.JsonFileReader;
 import reader.StatEntry;
 
 /**
@@ -270,12 +278,10 @@ public class Database extends SQLiteOpenHelper {
 
     public int tableLength(Context context,String tablename){
         int length=0;
-        String sql = "select COUNT(*) from " + tablename;
-        Cursor cursor = db.rawQuery(sql, null);
-        while (cursor.moveToNext()) {
-            length = cursor.getColumnCount();
-        }
-        cursor.close();
+        String sql = "select * from " + tablename;
+        Cursor cc = db.rawQuery(sql,null) ;
+        length = cc.getCount();
+        cc.close();
         return length;
     }
 
@@ -283,7 +289,7 @@ public class Database extends SQLiteOpenHelper {
 
         int index = 0;
 
-        String sql = "select type from ressources where index ="+resourceIndex;
+        String sql = "select type from ressources where identifiant = " + resourceIndex;
 
         String resourceName= "";
 
@@ -297,5 +303,46 @@ public class Database extends SQLiteOpenHelper {
         return resourceName;
     }
 
+    public void addDataFromFile(Context context,String pathName,String table){
+
+        try{
+
+            System.out.println("pathname is "+pathName);
+            File file = new File(pathName);
+            if(file.exists()){
+               System.out.println("File exist");
+               System.out.println(file.length());
+            }
+
+            InputStream in = new FileInputStream(file);
+
+
+            JsonReader j = new JsonReader(new InputStreamReader(in,"UTF-8"));
+
+            JsonFileReader reader = new JsonFileReader();
+            ArrayList<StatEntry> statEntries = reader.readFile(j);
+
+            if(statEntries==null){
+                System.out.println("StatEntry is null");
+            }else{
+
+                String s ="";
+                for (int i = 0; i < statEntries.size(); i++) {
+                    // s+=statEntries.get(i).toString()+"\n";
+                    System.out.println(statEntries.get(i).toString());
+
+                    this.addData(context,statEntries.get(i),table);
+            }
+
+            }
+
+        }catch (IOException e){
+
+        }
+
+
+
+
+    }
 
 }
