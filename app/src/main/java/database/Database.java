@@ -161,17 +161,11 @@ public class Database extends SQLiteOpenHelper {
     }
     public Cursor searchdata(Context context, String sql) {
 
-
-
-
-
         String columns[] = {"id", "timeStamp", "appName", "RESSOURCES"};
         //Cursor cursor = db.query(
         //      "donneesRessources",columns , null, null, null, null, null);
 
-
         Cursor cursor = db.rawQuery(sql, null);
-
 /*
         while(cursor.moveToNext()){
 
@@ -250,7 +244,6 @@ public class Database extends SQLiteOpenHelper {
         db.delete(tablename, null, null);
        // db.close();
 
-
     }
 
     public void affichetable(Context context, String tablename) {
@@ -298,8 +291,6 @@ public class Database extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(sql, null);
         while (cursor.moveToNext()) {
-
-
             resourceName = cursor.getString(cursor.getColumnIndex("type"));
        }
         cursor.close();
