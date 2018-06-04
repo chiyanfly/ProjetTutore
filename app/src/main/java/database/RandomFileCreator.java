@@ -40,18 +40,19 @@ public class RandomFileCreator {
         //System.out.println(file.getAbsolutePath());
         fw = new BufferedWriter(new FileWriter(file));
         fw.write("[");
-        fw.write("{\"timestamp\":" + timestamp + ",\"app\":\"myApp" + (Math.round(Math.random() * 100)) % 30 + "\" ,\"resource\":\"" + resourcesNames[(int) Math.round(Math.random() * (resourcesNames.length-1))] + "\",\"detail\":{}}");
-
+        fw.write("{\"timestamp\":" + timestamp + ",\"app\":\"myApp" + (Math.round(Math.random() * 100)) % 30
+                + "\" ,\"resource\":\"" + resourcesNames[(int) Math.round(Math.random() * (resourcesNames.length-1))]
+                + "\",\"detail\":{}}");
         fw.newLine();
-        while (lignes < 100) {
-            String test1 = ",{\"timestamp\":" + timestamp + ",\"app\":\"myApp" + (Math.round(Math.random() * 100)) % 30 + "\" ,\"resource\":\"" + resourcesNames[(int) Math.round(Math.random() * (resourcesNames.length-1))] + "\",\"detail\":{}}";
+        while (lignes < 10) {
+            String test1 = ",{\"timestamp\":" + timestamp + ",\"app\":\"myApp" + (Math.round(Math.random() * 100)) % 30
+                    + "\" ,\"resource\":\"" + resourcesNames[(int) Math.round(Math.random() * (resourcesNames.length-1))]
+                    + "\",\"detail\":{}}";
             //System.out.println(test1);
             fw.write(test1);
             fw.newLine();
             lignes++;
             timestamp = timestamp + Math.round(Math.random() * 100000);
-
-
         }
         fw.write("]");
         fw.close();

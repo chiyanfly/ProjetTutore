@@ -55,7 +55,7 @@ public class Choosemode extends Activity {
                 }
                 //String sql = "select * from " + "donneesRessources";
                 //database.affichetable(getApplicationContext(),"donneesRessources");
-                /*database.tableTransfer("donneesRessources");*/
+                //database.tableTransfer("donneesRessources");
             }
         });
 

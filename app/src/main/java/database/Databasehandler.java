@@ -53,14 +53,34 @@ public class Databasehandler {
 
         while (cursor.moveToNext()) {
             // add data to tables2
-            String timestamp = cursor.getString(cursor.getColumnIndex("timeStamp"));
-            String appname = cursor.getString(cursor.getColumnIndex("appName"));
-            String res = cursor.getString(cursor.getColumnIndex("RESSOURCES"));
+            Long timestamp = Long.parseLong(cursor.getString(cursor.getColumnIndex("timeStamp")));
+            int appname = Integer.parseInt(cursor.getString(cursor.getColumnIndex("appName")));
+            int res = Integer.parseInt(cursor.getString(cursor.getColumnIndex("RESSOURCES")));
             String detail = cursor.getString(cursor.getColumnIndex("detail"));
+            database.addDataDay(context, timestamp,appname,res, detail,table2);
+            // System.out.println(appname+" "+res);
+        }
+        cursor.close();
 
-            StatEntry statEntry = new StatEntry(new Timestamp(Long.parseLong(timestamp)), appname, res, new Detail(detail));
+    }
 
-            database.addData(context, statEntry, table2);
+
+
+    public void copydataMoyenne(String table1, String table2) {
+
+        String sql = "select * from " + table1;
+        Cursor cursor = database.searchdata(context, sql);
+
+        while (cursor.moveToNext()) {
+            // add data to tables2
+            Long timestamp = Long.parseLong(cursor.getString(cursor.getColumnIndex("timeStamp")));
+            int appname = Integer.parseInt(cursor.getString(cursor.getColumnIndex("appName")));
+            int res = Integer.parseInt(cursor.getString(cursor.getColumnIndex("RESSOURCES")));
+            int moyenne = Integer.parseInt(cursor.getString(cursor.getColumnIndex("moyenne")));
+
+
+
+            database.addDataMoyenne(context, timestamp,appname,res, moyenne, table2);
 
             // System.out.println(appname+" "+res);
         }
@@ -100,5 +120,56 @@ public class Databasehandler {
         }
 
     }
+//There are three things to do : 1 transfer currentDay data to previousDay 2 fill in the table currentMonth with currentDay
+// 3 clear all data in currentDay
+    public void dayMonthTransfer(Context context){
+
+        copydata("currentDay","previousDay");
+
+        String sql = "SELECT timeStamp,appName,RESSOURCES, COUNT(RESSOURCES) as moyenne from currentDay GROUP BY appName,RESSOURCES ";
+        String affichage = "";
+        Cursor cursor = database.searchdata(context,sql);
+
+        while (cursor.moveToNext()) {
+
+            Long timestamp = Long.parseLong(cursor.getString(cursor.getColumnIndex("timeStamp")));
+            int appname = Integer.parseInt(cursor.getString(cursor.getColumnIndex("appName")));
+            int res = Integer.parseInt(cursor.getString(cursor.getColumnIndex("RESSOURCES")));
+            int moyenne = Integer.parseInt(cursor.getString(cursor.getColumnIndex("moyenne")));
+            System.out.println("appName "+appname+" resource "+res+" moyenne "+moyenne);
+            database.addDataMoyenne(context,timestamp,appname,res,moyenne,"currentMonth");
+
+        }
+
+        cursor.close();
+
+        cleandata("currentDay");
+    }
+
+    //There are three things to do : 1 transfer currentMonth data to previousMonth 2 fill in the table currentYear with currentMonth
+    // 3 clear all data in currentMonth
+    public void monthYearTransfer(Context context){
+
+        copydataMoyenne("currentMonth","previousMonth");
+
+        String sql = "SELECT timeStamp,appName,RESSOURCES,COUNT(moyenne) as average from currentMonth GROUP BY appName,RESSOURCES ";
+        String affichage = "";
+        Cursor cursor = database.searchdata(context,sql);
+
+        while (cursor.moveToNext()) {
+            Long timestamp = Long.parseLong(cursor.getString(cursor.getColumnIndex("timeStamp")));
+            int appname = Integer.parseInt(cursor.getString(cursor.getColumnIndex("appName")));
+            int res = Integer.parseInt(cursor.getString(cursor.getColumnIndex("RESSOURCES")));
+            int average = Integer.parseInt(cursor.getString(cursor.getColumnIndex("average")));
+            //System.out.println("appName "+appname+" resource "+res+" moyenne "+average);
+            database.addDataMoyenne(context,timestamp,appname,res,average,"currentYear");
+
+        }
+
+        cursor.close();
+
+        cleandata("currentMonth");
+    }
+
 
 }

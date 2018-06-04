@@ -13,8 +13,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
+import reader.Detail;
 import reader.JsonFileReader;
 import reader.StatEntry;
 
@@ -65,9 +67,6 @@ public class Database extends SQLiteOpenHelper {
                 "type TEXT," +
                 "ressourcegroup TEXT" +
                 ");";
-//TODO
-
-
 
         String addRessource0 = "INSERT INTO ressources (identifiant,type,ressourcegroup) VALUES ('0','GPS','Location')";
         String addRessource1 = "INSERT INTO ressources (identifiant,type,ressourcegroup) VALUES ('1','Coarse','Location')";
@@ -108,61 +107,72 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(addRessource16);
         db.execSQL(addRessource17);
 
-        String createTable = "CREATE TABLE donneesRessources("
+        String createAppTable = "CREATE TABLE appNames(" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "identifiant INTEGER,"+
+                "name VARCHAR(20)" +
+                ");";
+        db.execSQL(createAppTable);
+
+        String insertAppName = "INSERT INTO appNames (identifiant,name) VALUES ('1','myApp0')";
+        db.execSQL(insertAppName);
+
+
+        String actualDay = "CREATE TABLE currentDay("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "timeStamp TIMESTAMP,"
-                + "appName VARCHAR(20),"
-                + "RESSOURCES REFERENCES ressources(type)," +
-                "detail TEXT);";
-
-         /* ici , il veut des entiers mais on a besoin des string */
-        db.execSQL(createTable);
-
-        String actualDay = "CREATE TABLE actualDay("
-                + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + "timeStamp TIMESTAMP,"
-                + "appName VARCHAR(20),"
-                + "RESSOURCES REFERENCES ressources(type)," +
+                + "appName REFERENCES appNames(identifiant),"
+                + "RESSOURCES REFERENCES ressources(identifiant)," +
                 "detail TEXT);";
         db.execSQL(actualDay);
 
-        String precedentDay = "CREATE TABLE precedentDay("
+        String createTable = "CREATE TABLE donneesRessources("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "timeStamp TIMESTAMP,"
-                + "appName VARCHAR(20),"
-                + "RESSOURCES REFERENCES ressources(type)," +
+                + "appName REFERENCES appNames(identifiant),"
+                + "RESSOURCES REFERENCES ressources(identifiant)," +
+                "detail TEXT);";
+         /* ici , il veut des entiers mais on a besoin des string */
+
+        db.execSQL(createTable);
+
+        String precedentDay = "CREATE TABLE previousDay("
+                + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + "timeStamp TIMESTAMP,"
+                + "appName REFERENCES appNames(identifiant),"
+                + "RESSOURCES REFERENCES ressources(identifiant)," +
                 "detail TEXT);";
         db.execSQL(precedentDay);
 
-        String actualMonth = "CREATE TABLE actualMonth("
+        String actualMonth = "CREATE TABLE currentMonth("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "timeStamp TIMESTAMP,"
-                + "appName VARCHAR(20),"
-                + "RESSOURCES REFERENCES ressources(type)," +
+                + "appName REFERENCES appNames(identifiant),"
+                + "RESSOURCES REFERENCES ressources(identifiant)," +
                 "moyenne INTEGER);";
         db.execSQL(actualMonth);
 
-        String precedentMonth = "CREATE TABLE precedentMonth("
+        String precedentMonth = "CREATE TABLE previousMonth("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "timeStamp TIMESTAMP,"
-                + "appName VARCHAR(20),"
-                + "RESSOURCES REFERENCES ressources(type)," +
+                + "appName REFERENCES appNames(identifiant),"
+                + "RESSOURCES REFERENCES ressources(identifiant)," +
                 "moyenne INTEGER);";
         db.execSQL(precedentMonth);
 
-        String actualYear = "CREATE TABLE actualYear("
+        String actualYear = "CREATE TABLE currentYear("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "timeStamp TIMESTAMP,"
-                + "appName VARCHAR(20),"
-                + "RESSOURCES REFERENCES ressources(type)," +
+                + "appName REFERENCES appNames(identifiant),"
+                + "RESSOURCES REFERENCES ressources(identifiant)," +
                 "moyenne INTEGER);";
         db.execSQL(actualYear);
 
-        String precedentYear = "CREATE TABLE precedentYear("
+        String precedentYear = "CREATE TABLE previousYear("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "timeStamp TIMESTAMP,"
-                + "appName VARCHAR(20),"
-                + "RESSOURCES REFERENCES ressources(type)," +
+                + "appName REFERENCES appNames(identifiant),"
+                + "RESSOURCES REFERENCES ressources(identifiant)," +
                 "moyenne INTEGER);";
         db.execSQL(precedentYear);
 
@@ -203,18 +213,42 @@ public class Database extends SQLiteOpenHelper {
 
     }
 
-    //to add datas
+    //to add datas to details
     public void addData(Context context, StatEntry statEntry, String tablename) {
-
       //  SQLiteDatabase db = Database.getInstance(context).getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("timeStamp", statEntry.getTimestamp().getTime());
-        contentValues.put("appName", statEntry.getApp_name());
-        contentValues.put("ressources", statEntry.getResource());
+        int appname = getAppIdByName(statEntry.getApp_name());
+        System.out.println("La fonction getappIpByName return "+appname);
+        contentValues.put("appName",appname );
+        System.out.println("dans add data on a une sortie de getappbyname de : "+appname);
+        int resource = getResourceIdByName(statEntry.getResource());
+        System.out.println("La fonction getresIpByName return "+resource);
+        contentValues.put("RESSOURCES", resource);
         contentValues.put("detail", statEntry.getDetails().toString());
         db.insert(tablename, null, contentValues);
+    }
+
+    public void addDataDay(Context context, long timestamps,int appname,int res,String detail,String tablename) {
+        //  SQLiteDatabase db = Database.getInstance(context).getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("timeStamp", timestamps);
+        contentValues.put("appName",appname);
+        contentValues.put("RESSOURCES", res);
+        contentValues.put("detail", detail);
+        db.insert(tablename, null, contentValues);
+    }
 
 
+    //to add datas to moyenne
+    public void addDataMoyenne(Context context,long timeStamp,int appName,int resource,int moyenne, String tablename) {
+        //  SQLiteDatabase db = Database.getInstance(context).getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("timeStamp", timeStamp);
+        contentValues.put("appName",appName );
+        contentValues.put("ressources", resource);
+        contentValues.put("moyenne",moyenne);
+        db.insert(tablename, null, contentValues);
     }
 /*
     // on utilise jamais
@@ -224,7 +258,7 @@ public class Database extends SQLiteOpenHelper {
         db.close();
     }
 */
-    // 5 min to hour
+    // 5 min to hour maybe never use
     private void toHour(Context context) {
 
         SQLiteDatabase db = Database.getInstance(context).getWritableDatabase();
@@ -264,6 +298,7 @@ public class Database extends SQLiteOpenHelper {
 
     }
 
+    // this function present the tables with detail column
     public void affichetable(Context context, String tablename) {
        // SQLiteDatabase database = Database.getInstance(context).getWritableDatabase();
         String sql = "select * from " + tablename;
@@ -274,7 +309,7 @@ public class Database extends SQLiteOpenHelper {
         while (cursor.moveToNext()) {
             // add data to tables2
             String timestamp = cursor.getString(cursor.getColumnIndex("timeStamp"));
-            String appname = cursor.getString(cursor.getColumnIndex("appName"));
+            int appname = Integer.parseInt(cursor.getString(cursor.getColumnIndex("appName")));
             String res = cursor.getString(cursor.getColumnIndex("RESSOURCES"));
             String detail = cursor.getString(cursor.getColumnIndex("detail"));
 
@@ -295,15 +330,10 @@ public class Database extends SQLiteOpenHelper {
         return length;
     }
 
-    public String returnResourceName (int resourceIndex) {
-
+    public String returnResourceName (int resourceIndentifiant) {
         int index = 0;
-
-        String sql = "select type from ressources where identifiant = " + resourceIndex;
-
+        String sql = "select type from ressources where identifiant = " + resourceIndentifiant;
         String resourceName= "";
-
-
         Cursor cursor = db.rawQuery(sql, null);
         while (cursor.moveToNext()) {
             resourceName = cursor.getString(cursor.getColumnIndex("type"));
@@ -312,6 +342,76 @@ public class Database extends SQLiteOpenHelper {
         return resourceName;
     }
 
+    public int getResourceIdByName(String resource){
+        int id = 0;
+        String sql = "select identifiant from ressources where type = " + "\""+resource+"\"";
+        Cursor cursor = db.rawQuery(sql, null);
+        while (cursor.moveToNext()) {
+            id = Integer.parseInt(  cursor.getString(cursor.getColumnIndex("identifiant")));
+        }
+        cursor.close();
+        return id;
+    }
+
+    public String returnAppName (int appIdentifiant) {
+        int index = 0;
+        String sql = "select type from appNames where identifiant = " + appIdentifiant;
+        String appName= "";
+        Cursor cursor = db.rawQuery(sql, null);
+        while (cursor.moveToNext()) {
+            appName = cursor.getString(cursor.getColumnIndex("name"));
+        }
+        if(appName.equals("")){
+            System.out.println("Don't find the AppName with this index "+appIdentifiant);
+        }
+        cursor.close();
+        return appName;
+    }
+
+    /**
+     *This function find appId by his name, if not found, returns -1
+     * @param appName
+     * @return
+     */
+    public int getAppIdByName(String appName){
+        int id = -1;
+        String sql1 = "select identifiant from appNames where name = \"" +appName+"\"";
+        Cursor cursor1 = db.rawQuery(sql1, null);
+        if(cursor1.moveToFirst()==false){
+           // System.out.println("You don't have this app name in your table "+appName);
+            id = addNewAppName(appName);
+        }else{
+            System.out.println("ON PASSE PAR LENDROIT OU TU CROIS AUON PASSE PAS");
+            id=Integer.parseInt(cursor1.getString(cursor1.getColumnIndex("identifiant")));
+        }
+        System.out.println("id retenue: "+id);
+        cursor1.close();
+        return id;
+    }
+
+    public int addNewAppName(String appName){
+        int newId = 0;
+        int aux;
+        String request = "select identifiant from appNames";
+        Cursor cursor = db.rawQuery(request,null);
+        while(cursor.moveToNext()){
+            aux = Integer.parseInt(cursor.getString(cursor.getColumnIndex("identifiant")));
+            if(aux>newId) {
+                newId = aux;
+            }
+        }
+        newId++;
+        String newAppName = "INSERT INTO appNames (identifiant,name) VALUES (\'"+newId+"\',\'"+appName+"\')";
+        db.execSQL(newAppName);
+        return newId;
+    }
+
+    /**
+     *  This function add data from file
+     * @param context
+     * @param pathName
+     * @param table
+     */
     public void addDataFromFile(Context context,String pathName,String table){
 
         try{
@@ -342,16 +442,30 @@ public class Database extends SQLiteOpenHelper {
         }
     }
 
-    /*public void tableTransfer(String table1){
-
-        String sql = "SELECT appName,RESSOURCES from "+table1+"";
-        String affichage = "";
-        Cursor cursor = db.rawQuery(sql, null);
-        while (cursor.moveToNext()) {
-             affichage = cursor.getString(cursor.getColumnIndex("appName"))+" "+ cursor.getString(cursor.getColumnIndex("RESSOURCES"));
-             System.out.println(affichage);
+    public void affichageAppNames(){
+        String toExcute = "select * from appNames";
+        Cursor cursor = db.rawQuery(toExcute,null);
+        System.out.println("name"+" | "+"identifiant");
+        while (cursor.moveToNext()){
+            String name = cursor.getString(cursor.getColumnIndex("name"));
+            String id = cursor.getString(cursor.getColumnIndex("identifiant"));
+            System.out.println(name+"   "+id);
         }
-        cursor.close();
-    }*/
 
+    }
+
+    public void affichageTableMoyenne(String table) {
+        String toExcute = "select * from "+table;
+        Cursor cursor = db.rawQuery(toExcute,null);
+        System.out.println("timestamps"+" | "+"name"+" | "+"ressources"+" | "+"moyenne");
+        while (cursor.moveToNext()){
+
+            long timeStamp = Long.parseLong(cursor.getString(cursor.getColumnIndex("timeStamp")));
+            int name = Integer.parseInt(cursor.getString(cursor.getColumnIndex("appName")));
+            int resource = Integer.parseInt(cursor.getString(cursor.getColumnIndex("RESSOURCES")));
+            int moyenne = Integer.parseInt(cursor.getString(cursor.getColumnIndex("moyenne")));
+            System.out.println(timeStamp+"   "+name+"   "+resource+"   "+moyenne);
+        }
+
+    }
 }

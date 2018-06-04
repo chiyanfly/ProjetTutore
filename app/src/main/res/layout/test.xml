@@ -24,6 +24,18 @@
         android:text="test aleatoirement"
         android:id="@+id/test"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Day To Month"
+        android:id="@+id/dayToMonth"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Month To Year"
+        android:id="@+id/monthToYear"/>
+
     </LinearLayout>
 
 
