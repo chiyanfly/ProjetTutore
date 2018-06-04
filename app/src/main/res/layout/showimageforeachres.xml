@@ -18,13 +18,12 @@
             <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:entries="@array/times"
-                android:id="@+id/time_in_mine_res">
+                android:id="@+id/scale_in_mine_res">
             </Spinner>
             <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/resource_in_mine_res">
+                android:id="@+id/time_in_mine_res">
             </Spinner>
             <!--android:entries="@array/resources"-->
         </LinearLayout>
@@ -32,14 +31,14 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="10"
-            android:orientation="horizontal">
-            <!--
-                <ListView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/mine_list"
-                    ></ListView>
-            !-->
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/resNameView" />
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/showimage_recycler_res"
                 android:layout_width="match_parent"

@@ -26,12 +26,6 @@ import java.util.Map;
 
 import supportelement.Interval;
 
-
-
-//   GraphUtils.getInstance().getLineChartView
-//   (MainActivity.this, studentGradeList , "B");
-
-
 public class GraphUtils {
     private static String[] s = new String[]{"A", "B", "C"};
     private static GraphUtils graph;
@@ -56,22 +50,22 @@ public class GraphUtils {
         } else {
             format = "MM";
         }
-        // Write data into TimeSeries
+        /* Write data into TimeSeries */
         TimeSeries timeSeries = new TimeSeries(tag);
         for (int index = 0; index < dataList.size(); index++) {
             timeSeries.add(dateList.get(index), dataList.get(index));
         }
-        // Add TimeSeries into expected XYMultipleSeriesDataset
+        /* Add TimeSeries into expected XYMultipleSeriesDataset */
         XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
         dataset.addSeries(timeSeries);
-        // Create XYSeriesRenderer to customize timeSeries
+        /* Create XYSeriesRenderer to customize timeSeries */
         XYSeriesRenderer timeSeriesRenderer = new XYSeriesRenderer();
         timeSeriesRenderer.setColor(Color.RED);
         timeSeriesRenderer.setPointStyle(PointStyle.CIRCLE);
         timeSeriesRenderer.setFillPoints(true);
         timeSeriesRenderer.setLineWidth(2);
         timeSeriesRenderer.setDisplayChartValues(false);
-        // Create XYMultipleSeriesRenderer
+        /* Create XYMultipleSeriesRenderer */
         XYMultipleSeriesRenderer multiRenderer = new XYMultipleSeriesRenderer();
         multiRenderer.setChartTitle("Accesses over "+scale);
         multiRenderer.setXTitle("Time");
@@ -87,13 +81,14 @@ public class GraphUtils {
         multiRenderer.setLabelsTextSize(15f);
         multiRenderer.setAxisTitleTextSize(15f);
         multiRenderer.setXLabelsAlign(Align.CENTER);
-        multiRenderer.setYLabelsAlign(Align.RIGHT);
+        multiRenderer.setYLabelsAlign(Align.CENTER);
+        multiRenderer.setYLabelsAngle((float) -90.0);
         multiRenderer.setZoomButtonsVisible(false);
         multiRenderer.setZoomEnabled(false, false);
         multiRenderer.setShowGrid(true);
         multiRenderer.setApplyBackgroundColor(true);
         multiRenderer.setPanEnabled(false, false);
-        // Add XYSeriesRendere to XYMultipleSeriesRenderer
+        /* Add XYSeriesRendere to XYMultipleSeriesRenderer */
         multiRenderer.addSeriesRenderer(timeSeriesRenderer);
         return ChartFactory.getTimeChartView(context, dataset, multiRenderer, format);
     }
