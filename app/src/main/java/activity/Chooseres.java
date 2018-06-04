@@ -46,11 +46,8 @@ public class Chooseres extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String resname = resnamelist.get(position);
                 System.out.println(resname);
-                HashMap<String, HashMap<Integer, Integer>> graphsourcemap
-                        = DataToimagetool.Table_to_graphsourcemap2(getApplicationContext(),resname,"fiveMinutes");
                 Intent intent = new Intent();
                 intent.setClass(Chooseres.this, ShowImageForEachRes.class);
-                intent.putExtra("graphinfo", (Serializable) graphsourcemap);
                 intent.putExtra("resname",resname);
                 startActivity(intent);
             }
@@ -61,10 +58,9 @@ public class Chooseres extends Activity {
 
     }
 
-    // get resource from the database and put it in the resnamelist
+    /* get resource from the database and put it in the resnamelist */
     void getResName(String tablename){
-
-        // select appname from table
+        /* select appname from table */
         Cursor c =  database.searchdata(getApplicationContext(),"select RESSOURCES from " + tablename);
         while(c.moveToNext()){
             String  resname = c.getString(c.getColumnIndex("RESSOURCES"));
