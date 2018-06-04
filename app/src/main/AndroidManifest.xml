@@ -20,7 +20,7 @@
         </activity>
 
 
-        <activity android:name="activity.TestActivity">
+        <activity android:name="activity.Choosemode">
 
         </activity>
 
@@ -34,7 +34,7 @@
         </activity>
 
 
-        <activity android:name="activity.Choosemode">
+        <activity android:name="activity.TestActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
